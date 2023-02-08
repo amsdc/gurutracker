@@ -1,0 +1,3 @@
+import gurutracker
+
+gurutracker.main()
