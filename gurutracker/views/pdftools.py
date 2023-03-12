@@ -38,17 +38,21 @@ class ImagesToPDF(tk.Toplevel):
         self.pdf_listbox.grid(row=1, column=0, sticky=tk.NSEW, pady=2)
         self.pdf_scroll = ttk.Scrollbar(self, orient=tk.VERTICAL)
         self.pdf_scroll.grid(row=1, column=1, sticky=tk.NS)
+        self.pdf_scrollh = ttk.Scrollbar(self, orient=tk.HORIZONTAL)
+        self.pdf_scrollh.grid(row=2, column=0, sticky=tk.EW)
         self.pdf_listbox["yscrollcommand"]=self.pdf_scroll.set
         self.pdf_scroll["command"] = self.pdf_listbox.yview
+        self.pdf_listbox["xscrollcommand"]=self.pdf_scrollh.set
+        self.pdf_scrollh["command"] = self.pdf_listbox.xview
 
         self.add_file_button = ttk.Button(self, text="Add File", command=self.add_file)
-        self.add_file_button.grid(row=2, column=0, columnspan=2, sticky=tk.NSEW, padx=2, pady=2)
+        self.add_file_button.grid(row=3, column=0, columnspan=2, sticky=tk.NSEW, padx=2, pady=2)
         self.save_file_button = ttk.Button(self, text="Save as PDF File", command=self.save_somewhere)
-        self.save_file_button.grid(row=3, column=0, columnspan=2, sticky=tk.NSEW, padx=2, pady=2)
+        self.save_file_button.grid(row=4, column=0, columnspan=2, sticky=tk.NSEW, padx=2, pady=2)
         self.save_rec_button = ttk.Button(self, text="Save to Selected record", 
                                           command=self.save_sel_rec,
                                           state=(tk.NORMAL if sel_record else tk.DISABLED))
-        self.save_rec_button.grid(row=4, column=0, columnspan=2, sticky=tk.NSEW, padx=2, pady=2)
+        self.save_rec_button.grid(row=5, column=0, columnspan=2, sticky=tk.NSEW, padx=2, pady=2)
         
         tk.Grid.rowconfigure(self, 1, weight=1)
         tk.Grid.columnconfigure(self, 0, weight=1)
@@ -58,10 +62,11 @@ class ImagesToPDF(tk.Toplevel):
         gurutracker.views.helpers.center_window_wrt(self, parent)
         
     def add_file(self):
-        fname = filedialog.askopenfilename(filetypes=[
+        fname = filedialog.askopenfilenames(filetypes=[
                 ('Image Files', '.jpg .jpeg .png .bmp .gif .tiff .svg')])
         if fname:
-            self.pdf_listbox.insert(tk.END, fname)
+            for name in fname:
+                self.pdf_listbox.insert(tk.END, name)
     
     def delete_selected(self, event=None):
         # https://stackoverflow.com/questions/53107722/python-tkinter-deleting-selected-listbox-item
@@ -82,8 +87,10 @@ class ImagesToPDF(tk.Toplevel):
                 for i in range(1, len(imgpaths)):
                     imgs.append(Image.open(imgpaths[i]).convert('RGB'))
 
-            image_1.save(os.path.join(dr.name, "output.pdf"),
-                    save_all=True, append_images=imgs)
+                image_1.save(os.path.join(dr.name, "output.pdf"),
+                        save_all=True, append_images=imgs)
+            else:
+                image_1.save(os.path.join(dr.name, "output.pdf"))
             
             return dr, "output.pdf"
         else:
