@@ -5,6 +5,7 @@ from tkinter import messagebox
 from tkinter import simpledialog
 from tkinter import colorchooser
 
+from gurutracker.config import settings
 from gurutracker.database.objects import Assignment, Tutor, Tag
 from gurutracker.views.listbox import TutorListFrame, TagListFrame
 from gurutracker.views.helpers import center_window, center_window_wrt
@@ -14,10 +15,9 @@ from gurutracker.helpers.object_typecaster import tagname_list, taglist_to_objec
 # Assignment Dialogs
 
 class AssignmentDialogBase(tk.Toplevel, ABC):
-    def __init__(self, parent, config, controller, assignment=None, callback=None, *a, **kw):
+    def __init__(self, parent, controller, assignment=None, callback=None, *a, **kw):
         tk.Toplevel.__init__(self, parent, *a, **kw)
         
-        self.config = config
         self.controller = controller
         self.assignment = assignment
         self.callback = callback
@@ -55,7 +55,7 @@ class AssignmentDialogBase(tk.Toplevel, ABC):
         
         self.assn_tutor_label = ttk.Label(self, text="Tutor")
         self.assn_tutor_label.grid(row=4, column=0, sticky=tk.E, padx=2, pady=2)
-        self.assn_tutor_tv = TutorListFrame(self, showcols=config.getlist("gui.preferences", "dialogs.AssignmentDialogBase.TutorListFrame.displaycolumns"))
+        self.assn_tutor_tv = TutorListFrame(self, showcols=settings.getlist("gui.preferences", "dialogs.AssignmentDialogBase.TutorListFrame.displaycolumns"))
         self.assn_tutor_tv.extend(self.controller.list_tutors())
         self.assn_tutor_tv.grid(row=4, column=1, sticky=tk.NSEW, padx=2, pady=2)
         
@@ -171,10 +171,9 @@ class EditAssignment(AssignmentDialogBase):
 # Tutor Dialogs
 
 class TutorDialogBase(tk.Toplevel, ABC):
-    def __init__(self, parent, config, controller, assignment=None, callback=None, *a, **kw):
+    def __init__(self, parent, controller, assignment=None, callback=None, *a, **kw):
         tk.Toplevel.__init__(self, parent, *a, **kw)
         
-        self.config = config
         self.controller = controller
         self.assignment = assignment
         self.callback = callback
@@ -285,10 +284,9 @@ class NewTutor(TutorDialogBase):
 # Tag Dialogs
 
 class TagDialogBase(tk.Toplevel):
-    def __init__(self, parent, config, controller, assignment=None, callback=None, *a, **kw):
+    def __init__(self, parent, controller, assignment=None, callback=None, *a, **kw):
         tk.Toplevel.__init__(self, parent, *a, **kw)
         
-        self.config = config
         self.controller = controller
         self.assignment = assignment
         self.callback = callback
@@ -401,10 +399,9 @@ class FilterTags(TagDialogBase):
 
 
 class EditTags(tk.Toplevel):
-    def __init__(self, parent, config, controller, callback=None, *a, **kw):
+    def __init__(self, parent, controller, callback=None, *a, **kw):
         tk.Toplevel.__init__(self, parent, *a, **kw)
         
-        self.config = config
         self.controller = controller
         self.callback = callback
         

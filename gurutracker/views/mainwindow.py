@@ -9,6 +9,7 @@ from tkinter import scrolledtext
 import webbrowser
 from functools import partial
 
+from gurutracker.config import settings
 from gurutracker.views.listbox import AssignmentListFrame, TutorListFrame
 from gurutracker.views.bars import ToolBar
 from gurutracker.views.widgets import ToolbarButton, ToolbarMenubutton
@@ -22,10 +23,10 @@ from gurutracker.helpers.object_typecaster import list_to_objects, get_cobject_t
 
 
 class AssignmentBrowserFrame(tk.Frame):
-    def __init__(self, parent, config, controller, *a, **kw):
+    def __init__(self, parent, controller, *a, **kw):
         super().__init__(parent, *a, **kw)
         
-        self.config = config
+        
         self.controller = controller
         
         self.selected_record = None 
@@ -97,7 +98,7 @@ class AssignmentBrowserFrame(tk.Frame):
         self.assn_lst.treeview.bind('<Return>', self.tv_enter_key)
 
         # columns
-        self.assn_lst.treeview["displaycolumns"] = self.config.getlist("gui.preferences", "mainwindow.AssignmentBrowserFrame.AssignmentListFrame.displaycolumns")
+        self.assn_lst.treeview["displaycolumns"] = settings.getlist("gui.preferences", "mainwindow.AssignmentBrowserFrame.AssignmentListFrame.displaycolumns")
         
         # self.assn_lst.treeview.tag_configure("completed", foreground="#ffffff", background="#216021")
         # self.assn_lst.treeview.tag_configure("incomplete", foreground="#ffffff", background="#ff0000")
@@ -113,25 +114,25 @@ class AssignmentBrowserFrame(tk.Frame):
         self.refresh_treeview()
     
     def edit_tags_overall(self):
-        dialogs.EditTags(self, self.config, self.controller, partial(tv_tag_config, self.controller, self.assn_lst.treeview))
+        dialogs.EditTags(self, self.controller, partial(tv_tag_config, self.controller, self.assn_lst.treeview))
 
     def do_nothing(self):
         pass
         
     def tv_double_click(self, event):
-        getattr(self, self.config.get("gui.preferences", "mainwindow.AssignmentBrowserFrame.DoubleButton1.defaultaction"), self.view_current_record)()
+        getattr(self, settings.get("gui.preferences", "mainwindow.AssignmentBrowserFrame.DoubleButton1.defaultaction"), self.view_current_record)()
     
     def tv_enter_key(self, event):
-        getattr(self, self.config.get("gui.preferences", "mainwindow.AssignmentBrowserFrame.ReturnKey.defaultaction"), self.view_current_record)()
+        getattr(self, settings.get("gui.preferences", "mainwindow.AssignmentBrowserFrame.ReturnKey.defaultaction"), self.view_current_record)()
         
     def edit_current_record(self):
         if self.selected_record:
-            dialogs.EditAssignment(self, self.config, self.controller, assignment=self.selected_record, callback=self.refresh_treeview)
+            dialogs.EditAssignment(self, self.controller, assignment=self.selected_record, callback=self.refresh_treeview)
     
     def open_current_record(self):
         if self.selected_record:
-            if valid_filepath(self.config, self.selected_record.uidentifier):
-                webbrowser.open_new(filepath(self.config, self.selected_record.uidentifier))
+            if valid_filepath(settings, self.selected_record.uidentifier):
+                webbrowser.open_new(filepath(settings, self.selected_record.uidentifier))
             else:
                 messagebox.showerror("Error", "This record does not have any file assocated with it.")
         else:
@@ -150,20 +151,20 @@ class AssignmentBrowserFrame(tk.Frame):
             #     os.makedirs(os.path.split(path)[0], exist_ok=True)
             #     shutil.copy(fname, path)
             #     messagebox.showinfo("Success", "Success. Please refresh to open file")
-            gurutracker.views.helpers.associate_file_with_record(self.config, self.selected_record, fname)
+            gurutracker.views.helpers.associate_file_with_record(settings, self.selected_record, fname)
         else:
             messagebox.showinfo("Info", "Please select a record.")
     
     def view_tags_current_record(self):
         if self.selected_record:
             assn = self.selected_record
-            cb = getattr(self, self.config.get("gui.preferences", "mainwindow.AssignmentBrowserFrame.ViewTagsDialog.onupdate"), self.refresh_treeview)
-            dialogs.ViewTags(self, self.config, self.controller, assignment=self.selected_record, callback=cb)
+            cb = getattr(self, settings.get("gui.preferences", "mainwindow.AssignmentBrowserFrame.ViewTagsDialog.onupdate"), self.refresh_treeview)
+            dialogs.ViewTags(self, self.controller, assignment=self.selected_record, callback=cb)
         else:
             messagebox.showinfo("Info", "Please select a record.")
 
     def filter_assn(self):
-        dialogs.FilterTags(self, self.config, self.controller, callback=self.load_data_treeview)
+        dialogs.FilterTags(self, self.controller, callback=self.load_data_treeview)
     
     def view_current_record(self):
         if self.selected_record:
@@ -186,7 +187,7 @@ class AssignmentBrowserFrame(tk.Frame):
             self.selected_record = list_to_objects(item['values'])
             
             # special checking for open
-            if valid_filepath(self.config, self.selected_record.uidentifier):
+            if valid_filepath(settings, self.selected_record.uidentifier):
                 self.toolbar_open["state"] = tk.NORMAL
             else:
                 self.toolbar_open["state"] = tk.DISABLED
@@ -199,7 +200,7 @@ class AssignmentBrowserFrame(tk.Frame):
             self.selected_record = None
     
     def add_new(self):
-        dialogs.NewAssignment(self, self.config, self.controller, callback=self.refresh_treeview)
+        dialogs.NewAssignment(self, self.controller, callback=self.refresh_treeview)
     
     def refresh_treeview(self):
         self.toolbar_refresh["text"] = "Refresh"
@@ -263,10 +264,10 @@ class AssignmentBrowserFrame(tk.Frame):
 
     def show_datastore(self):
         if self.selected_record:
-            print(filepath(self.config, "/".join(self.selected_record.uidentifier.split("/")[:1])))
-            webbrowser.open_new(dirpath(self.config, self.selected_record.uidentifier))
+            print(filepath(settings, "/".join(self.selected_record.uidentifier.split("/")[:1])))
+            webbrowser.open_new(dirpath(settings, self.selected_record.uidentifier))
         else:
-            webbrowser.open_new(self.config.get("files", "datadir"))
+            webbrowser.open_new(settings.get("files", "datadir"))
     
     # def export_all(self):
     #     fname = filedialog.asksaveasfilename(filetypes=[
@@ -298,14 +299,14 @@ class AssignmentBrowserFrame(tk.Frame):
     #     cur.close()
 
     def images_to_pdf(self):
-        gurutracker.views.pdftools.ImagesToPDF(self, self.config, self.controller, self.selected_record, self.refresh_treeview)
+        gurutracker.views.pdftools.ImagesToPDF(self, self.controller, self.selected_record, self.refresh_treeview)
 
 
 class TutorBrowserFrame(tk.Frame):
-    def __init__(self, parent, config, controller, *a, **kw):
+    def __init__(self, parent, controller, *a, **kw):
         super().__init__(parent, *a, **kw)
         
-        self.config = config
+        
         self.controller = controller
         
         self.selected_record = None 
@@ -336,7 +337,7 @@ class TutorBrowserFrame(tk.Frame):
         self.tutor_list.extend(self.controller.list_tutors())
         
     def add_new(self):
-        dialogs.NewTutor(self, self.config, self.controller, callback=self.refresh_treeview)
+        dialogs.NewTutor(self, self.controller, callback=self.refresh_treeview)
     
     def view_record(self):
         if self.selected_record:
@@ -361,10 +362,10 @@ class TutorBrowserFrame(tk.Frame):
 
 
 class NotesFrame(tk.Frame):
-    def __init__(self, parent, config, controller, *a, **kw):
+    def __init__(self, parent, controller, *a, **kw):
         super().__init__(parent, *a, **kw)
         
-        self.config = config
+        
         self.controller = controller
 
         self.toolbar = ToolBar(self)
@@ -378,7 +379,7 @@ class NotesFrame(tk.Frame):
         
         self.populate()
         
-        if self.config.getboolean("notes", "autosave"):
+        if settings.getboolean("notes", "autosave"):
             self.content.bind("<KeyRelease>", self.save_notes)
         else:
             self.content.bind("<KeyRelease>", self.save_indicate)
@@ -390,21 +391,21 @@ class NotesFrame(tk.Frame):
         self.toolbar_save["text"] = "*Save"
     
     def populate(self):
-        if os.path.isfile(self.config.get("notes", "textfile")): 
-            with open(self.config.get("notes", "textfile")) as f:
+        if os.path.isfile(settings.get("notes", "textfile")): 
+            with open(settings.get("notes", "textfile")) as f:
                 self.content.insert(tk.END, f.read())
     
     def save_notes(self, event=None):
         self.toolbar_save["text"] = "Save"
-        with open(self.config.get("notes", "textfile"), "w") as f:
+        with open(settings.get("notes", "textfile"), "w") as f:
             f.write(self.content.get("1.0", "end-1c"))
 
 
 class MainWindow(tk.Tk):
-    def __init__(self, config, controller):
+    def __init__(self, controller):
         super().__init__()
         
-        self.config = config
+        
         self.controller = controller
         
         self.selected_record = None
@@ -430,23 +431,23 @@ class MainWindow(tk.Tk):
         
         self.notebook = ttk.Notebook(self)
         
-        self.assignment_frame = AssignmentBrowserFrame(self.notebook, self.config, self.controller)
+        self.assignment_frame = AssignmentBrowserFrame(self.notebook, self.controller)
         self.assignment_frame.pack(fill= tk.BOTH, expand=True)
         self.notebook.add(self.assignment_frame, text="Assignments")
         
-        self.tutor_frame = TutorBrowserFrame(self.notebook, self.config, self.controller)
+        self.tutor_frame = TutorBrowserFrame(self.notebook, self.controller)
         self.tutor_frame.pack(fill= tk.BOTH, expand=True)
         self.notebook.add(self.tutor_frame, text="Tutors")
         
-        if self.config.getboolean("notes", "enabled"):
-            self.notes_frame = NotesFrame(self.notebook, self.config, self.controller)
+        if settings.getboolean("notes", "enabled"):
+            self.notes_frame = NotesFrame(self.notebook, self.controller)
             self.notes_frame.pack(fill= tk.BOTH, expand=True)
             self.notebook.add(self.notes_frame, text="Notes")
         
         self.notebook.pack(fill= tk.BOTH, expand=True)
         
         # auto full screen
-        if self.config.getboolean("gui.preferences", "mainwindow.onStartup.launchFullScreen"):
+        if settings.getboolean("gui.preferences", "mainwindow.onStartup.launchFullScreen"):
             self.win_fullscreen_tkvar.set(True)
             self.toggle_full_screen()
         
@@ -458,7 +459,7 @@ class MainWindow(tk.Tk):
             ('Gurutracker eXport Package', '*.gxp')],
             defaultextension='.gxp')
         if fname:
-            gurutracker.helpers.exporter.export(self.config, self.controller, fname)
+            gurutracker.helpers.exporter.export(settings, self.controller, fname)
             messagebox.showinfo("Finished", "Export finished.")
     
     def import_all_data(self):
@@ -470,7 +471,7 @@ class MainWindow(tk.Tk):
                 ('Gurutracker eXport Package', '*.gxp')])
             if fname:
                 try:
-                    gurutracker.helpers.exporter.import_(self.config, self.controller, fname)
+                    gurutracker.helpers.exporter.import_(settings, self.controller, fname)
                 except gurutracker.helpers.exporter.VersionMismatchError:
                     messagebox.showerror("Error", "This file is of an unsupported GXP version.")
                 except:
@@ -481,3 +482,4 @@ class MainWindow(tk.Tk):
             messagebox.showerror("Error", "Import only possible in fresh install")
             
         cur.close()
+

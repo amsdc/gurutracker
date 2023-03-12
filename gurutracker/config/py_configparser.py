@@ -32,6 +32,7 @@ class Config():
         self.config.read(self.filename)
 
     def read_config(self):
+        print()
         if not os.path.isfile(self.filename):
             self.write()
         self._read_config()
