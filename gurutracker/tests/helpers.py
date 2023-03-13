@@ -1,23 +1,24 @@
 import unittest
+import importlib
 import os
 
+import gurutracker.globals
 import gurutracker.helpers.fileopener
 import gurutracker.config.py_configparser
 
 
 class TestFileOpenerHelper(unittest.TestCase):
+    def setUp(self):
+        # fname = gurutracker.config.py_configparser.Config("testing.ini")
+        # fname.read_config()
+        gurutracker.globals.settings.set("files", "datadir", "DATA")
+        gurutracker.globals.settings.write()
+        
+        importlib.reload(gurutracker.globals)
+        
     def test_file_name(self):
-        fname = gurutracker.config.py_configparser.Config("testing.ini")
-        fname.read_config()
-        
-        x = gurutracker.helpers.fileopener.filepath(fname, "MATH/HI")
+        x = gurutracker.helpers.fileopener.filepath("MATH/HI")
         self.assertTrue(x == "DATA\\MATH\\HI.pdf")
-        
-        fname.config["files"]["datadir"] = "DATA/jjj"
-        fname.write()
-        x = gurutracker.helpers.fileopener.filepath(fname, "MATH/HI")
-        self.assertTrue(x == "DATA\\jjj\\MATH\\HI.pdf")
-        os.unlink("testing.ini")
         
 
 def suite():

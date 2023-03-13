@@ -9,6 +9,17 @@ class Subject(object):
         return "<Tutor {}, name={}, desc={}, uidentifier={}>".format(
             self.id, self.name, self.desc, self.uidentifier
         )
+    
+    def __eq__(self, __o):
+        if isinstance(__o, Subject):
+            if self.id and __o.id:
+                return self.id == __o.id
+            elif self.uidentifier and __o.uidentifier:
+                return self.uidentifier == __o.uidentifier
+            else:
+                raise ValueError("no way to determine equality")
+        else:
+            raise TypeError("cannot check equality")
 
 class Tutor(object):
     def __init__(self, id=None, name=None, uidentifier=None, subject=None):

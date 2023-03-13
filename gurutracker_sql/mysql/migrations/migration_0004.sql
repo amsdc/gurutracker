@@ -16,8 +16,9 @@ ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE `tutor` DROP `level`; 
 
 -- Add nested tags support
+ALTER TABLE `tag` ADD `parent_tag_id` INT;
 ALTER TABLE `tag` ADD CONSTRAINT FK_Tag_Tag
-FOREIGN KEY `id` REFERENCES `tag`(`id`)
+FOREIGN KEY (`parent_tag_id`) REFERENCES `tag`(`id`)
 ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE `tag` MODIFY `text` VARCHAR(50) NOT NULL; -- removed unique restriction to allow nested tags with same names
 

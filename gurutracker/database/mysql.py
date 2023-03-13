@@ -16,10 +16,10 @@ class Controller(Base):
         cur.execute("SELECT `id`, `name`, `desc`, `uidentifier` FROM `subject`;")
         res = []
         for item in cur.fetchall():
-            res.append(Subject(id=item[1],
-                               name=item[2],
-                               desc=item[3],
-                               uidentifier=item[4]))
+            res.append(Subject(id=item[0],
+                               name=item[1],
+                               desc=item[2],
+                               uidentifier=item[3]))
         cur.close()
         return res
     
