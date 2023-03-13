@@ -8,6 +8,22 @@ class Base(ABC):
     `sql_query` are mandatory to implement. For a full working example,
     see `mysql.py`.
     """
+    
+    @abstractmethod
+    def list_all_subjects(self):
+        pass
+    
+    @abstractmethod
+    def add_subject(self, subject):
+        pass
+    
+    @abstractmethod
+    def edit_subject(self, subject):
+        pass
+    
+    @abstractmethod
+    def delete_subject(self, subject):
+        pass
 
     @abstractmethod
     def list_all_assignments(self):

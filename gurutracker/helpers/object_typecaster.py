@@ -1,4 +1,5 @@
 from gurutracker.database.objects import Assignment, Tutor, Tag
+from gurutracker.globals import controller
 
 def list_to_objects(item):
     teac = Tutor(id=item[4],
@@ -35,12 +36,12 @@ def get_cobject_tags(item, tags_y=None, tags_n=None):
         else:
             return tags_n
             
-def tv_tag_config(controller, treeview):
+def tv_tag_config(treeview):
     for tag in controller.list_tags():
         if tag.fgcolor or tag.bgcolor:
             treeview.tag_configure(f"tag_{tag.id}", foreground="#{}".format(tag.fgcolor) if tag.fgcolor else "#000000", background="#{}".format(tag.bgcolor) if tag.bgcolor else "#ffffff")
             
-def color_treeview_item(controller, item):
+def color_treeview_item(item):
     tags = ()
     for tag in controller.assignment_tags(item):
         tags += (f"tag_{tag.id}",)

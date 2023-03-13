@@ -5,7 +5,7 @@ from tkinter import messagebox
 from tkinter import simpledialog
 from tkinter import colorchooser
 
-from gurutracker.config import settings
+from gurutracker.globals import settings, controller
 from gurutracker.database.objects import Assignment, Tutor, Tag
 from gurutracker.views.listbox import TutorListFrame, TagListFrame
 from gurutracker.views.helpers import center_window, center_window_wrt
@@ -15,10 +15,10 @@ from gurutracker.helpers.object_typecaster import tagname_list, taglist_to_objec
 # Assignment Dialogs
 
 class AssignmentDialogBase(tk.Toplevel, ABC):
-    def __init__(self, parent, controller, assignment=None, callback=None, *a, **kw):
+    def __init__(self, parent, assignment=None, callback=None, *a, **kw):
         tk.Toplevel.__init__(self, parent, *a, **kw)
         
-        self.controller = controller
+        
         self.assignment = assignment
         self.callback = callback
         
@@ -56,7 +56,7 @@ class AssignmentDialogBase(tk.Toplevel, ABC):
         self.assn_tutor_label = ttk.Label(self, text="Tutor")
         self.assn_tutor_label.grid(row=4, column=0, sticky=tk.E, padx=2, pady=2)
         self.assn_tutor_tv = TutorListFrame(self, showcols=settings.getlist("gui.preferences", "dialogs.AssignmentDialogBase.TutorListFrame.displaycolumns"))
-        self.assn_tutor_tv.extend(self.controller.list_tutors())
+        self.assn_tutor_tv.extend(controller.list_tutors())
         self.assn_tutor_tv.grid(row=4, column=1, sticky=tk.NSEW, padx=2, pady=2)
         
         self.submit = ttk.Button(self, text="Submit")
@@ -92,7 +92,7 @@ class AssignmentDialogBase(tk.Toplevel, ABC):
         if not uidentifier:
             errors += "* Please enter the UID of the assignment.\n"
         else:
-            query = self.controller.get_assignment_by_uid(uidentifier)
+            query = controller.get_assignment_by_uid(uidentifier)
             if query and (not id or query.id != id):
                 errors += "* The chosen UID is already in use. Please choose another.\n"
         if not type:
@@ -125,7 +125,7 @@ class NewAssignment(AssignmentDialogBase):
                               tutor=Tutor(id=tid))
                               
             try:
-                self.controller.add_assignment(assn)
+                controller.add_assignment(assn)
             except Exception as e:
                 messagebox.showerror("Database Error {}".format(str(type(e))), str(e))
             else:
@@ -159,7 +159,7 @@ class EditAssignment(AssignmentDialogBase):
                               tutor=Tutor(id=tid))
                               
             try:
-                self.controller.edit_assignment(assn)
+                controller.edit_assignment(assn)
             except Exception as e:
                 messagebox.showerror("Database Error {}".format(str(type(e))), str(e))
             else:
@@ -171,10 +171,10 @@ class EditAssignment(AssignmentDialogBase):
 # Tutor Dialogs
 
 class TutorDialogBase(tk.Toplevel, ABC):
-    def __init__(self, parent, controller, assignment=None, callback=None, *a, **kw):
+    def __init__(self, parent, assignment=None, callback=None, *a, **kw):
         tk.Toplevel.__init__(self, parent, *a, **kw)
         
-        self.controller = controller
+        
         self.assignment = assignment
         self.callback = callback
         
@@ -243,7 +243,7 @@ class TutorDialogBase(tk.Toplevel, ABC):
         if not uidentifier:
             errors += "* Please enter the UID of the tutor.\n"
         else:
-            query = self.controller.get_tutor_by_uid(uidentifier)
+            query = controller.get_tutor_by_uid(uidentifier)
             if query and (not id or query.id != id):
                 errors += "* The chosen UID is already in use. Please choose another.\n"
                 
@@ -272,7 +272,7 @@ class NewTutor(TutorDialogBase):
                               level=self.tutor_level_entry.get())
                               
             try:
-                self.controller.add_tutor(tuto)
+                controller.add_tutor(tuto)
             except Exception as e:
                 messagebox.showerror("Database Error {}".format(str(type(e))), str(e))
             else:
@@ -284,10 +284,9 @@ class NewTutor(TutorDialogBase):
 # Tag Dialogs
 
 class TagDialogBase(tk.Toplevel):
-    def __init__(self, parent, controller, assignment=None, callback=None, *a, **kw):
+    def __init__(self, parent, assignment=None, callback=None, *a, **kw):
         tk.Toplevel.__init__(self, parent, *a, **kw)
         
-        self.controller = controller
         self.assignment = assignment
         self.callback = callback
         
@@ -309,13 +308,13 @@ class TagDialogBase(tk.Toplevel):
         
     def refresh(self):
         self.assn_tag_tv.clear()
-        self.assn_tag_tv.extend(self.controller.assignment_tags(self.assignment))
+        self.assn_tag_tv.extend(controller.assignment_tags(self.assignment))
         
         
 class ViewTags(TagDialogBase):
     def populate(self):
         self.assn_tag_label["text"] = "Tags for {}".format(self.assignment.name)
-        self.assn_tag_tv.extend(self.controller.assignment_tags(self.assignment))
+        self.assn_tag_tv.extend(controller.assignment_tags(self.assignment))
         
         # for deletion
         self.assn_tag_tv.treeview.bind('<Double-Button-1>', self.tv_double_click)
@@ -323,7 +322,7 @@ class ViewTags(TagDialogBase):
         self.addtag_val = tk.StringVar()
         self.addtag_combo = DropdownCombobox(self, textvariable=self.addtag_val)
         self.addtag_combo.bind("<KeyPress>", self.change_data)
-        self.addtag_combo["values"] = tagname_list(self.controller.list_tags())
+        self.addtag_combo["values"] = tagname_list(controller.list_tags())
         self.addtag_combo.grid(row=2, column=0, sticky=tk.EW, padx=2, pady=2)
         
         self.submit = ttk.Button(self, text="Add Tag", command=self.add_tag)
@@ -333,36 +332,36 @@ class ViewTags(TagDialogBase):
         sel = self.assn_tag_tv.treeview.selection()
         if sel:
             id = self.assn_tag_tv.treeview.item(sel[0])["values"][0]
-            self.controller.untag_assignment(self.assignment, Tag(id=id))
+            controller.untag_assignment(self.assignment, Tag(id=id))
             self.refresh()
             if callable(self.callback):
                 self.callback()
         
     def change_data(self, event):
-        self.addtag_combo["values"] = tagname_list(self.controller.search_tag_by_text_instr(self.addtag_val.get()))
+        self.addtag_combo["values"] = tagname_list(controller.search_tag_by_text_instr(self.addtag_val.get()))
         
     def _add_tag(self, tag):
-        self.controller.tag_assignment(self.assignment, tag)
+        controller.tag_assignment(self.assignment, tag)
         self.refresh()
         if callable(self.callback):
             self.callback()
         
     def add_tag(self):
-        tag = self.controller.get_tag(self.addtag_val.get())
+        tag = controller.get_tag(self.addtag_val.get())
         if tag:
             self._add_tag(tag)
         else:
             yn = messagebox.askyesno("Create Tag", "Tag does not exist\nCreate new tag?")
             if yn:
                 tag = Tag(text=self.addtag_val.get())
-                self.controller.add_tag(tag)
+                controller.add_tag(tag)
                 self._add_tag(tag)
 
 
 class FilterTags(TagDialogBase):
     def populate(self):
         self.assn_tag_label["text"] = "Filter Tags"
-        self.assn_tag_tv.extend(self.controller.list_tags())
+        self.assn_tag_tv.extend(controller.list_tags())
         # debug
         # self.assn_tag_tv.treeview["show"] = "headings"
         # self.assn_tag_tv.treeview["displaycolumns"] = ("tag.id", "tag.text",)
@@ -374,7 +373,7 @@ class FilterTags(TagDialogBase):
         self.addtag_combo = ttk.Entry(self, textvariable=self.addtag_val)
         self.addtag_combo.bind("<KeyRelease>", self.change_data)
         # self.addtag_combo.bind("<<ComboboxSelected>>", self.change_data)
-        # self.addtag_combo["values"] = tagname_list(self.controller.list_tags())
+        # self.addtag_combo["values"] = tagname_list(controller.list_tags())
         self.addtag_combo.grid(row=2, column=0, columnspan=2, sticky=tk.EW, padx=2, pady=2)
         
         self.searchb = ttk.Button(self, text="Search", command=self.tv_double_click)
@@ -386,23 +385,23 @@ class FilterTags(TagDialogBase):
             data = list()
             for id in sel:
                 # id = self.assn_tag_tv.treeview.item(id)["values"][1])
-                data += self.controller.tagged_assignments(Tag(id=int(id)))
+                data += controller.tagged_assignments(Tag(id=int(id)))
             
             if callable(self.callback):
                 self.callback(data)
                 
     def change_data(self, event=None):
-        d = self.controller.search_tag_by_text_instr(self.addtag_val.get())
+        d = controller.search_tag_by_text_instr(self.addtag_val.get())
         self.assn_tag_tv.clear()
         self.assn_tag_tv.extend(d)
         # self.addtag_combo["values"] = tagname_list(d)
 
 
 class EditTags(tk.Toplevel):
-    def __init__(self, parent, controller, callback=None, *a, **kw):
+    def __init__(self, parent, callback=None, *a, **kw):
         tk.Toplevel.__init__(self, parent, *a, **kw)
         
-        self.controller = controller
+        
         self.callback = callback
         
         self.selected_record = None
@@ -473,7 +472,7 @@ class EditTags(tk.Toplevel):
     
     def refresh(self):
         self.assn_tag_tv.clear()
-        self.assn_tag_tv.extend(self.controller.list_tags())
+        self.assn_tag_tv.extend(controller.list_tags())
     
     def change_fgcolor(self):
         c = colorchooser.askcolor()[1]
@@ -484,7 +483,7 @@ class EditTags(tk.Toplevel):
         self.bgcolor_button["bg"] = "SystemButtonFace" if c=="#ffffff" else c
     
     def update_tag(self):
-        self.controller.edit_tag(Tag(
+        controller.edit_tag(Tag(
             id=int(self.tag_id.get()),
             text=str(self.tag_name.get()),
             fgcolor=(self.fgcolor_button["bg"][1:]

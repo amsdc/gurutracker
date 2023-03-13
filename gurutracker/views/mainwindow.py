@@ -9,7 +9,7 @@ from tkinter import scrolledtext
 import webbrowser
 from functools import partial
 
-from gurutracker.config import settings
+from gurutracker.globals import settings, controller
 from gurutracker.views.listbox import AssignmentListFrame, TutorListFrame
 from gurutracker.views.bars import ToolBar
 from gurutracker.views.widgets import ToolbarButton, ToolbarMenubutton
@@ -23,11 +23,8 @@ from gurutracker.helpers.object_typecaster import list_to_objects, get_cobject_t
 
 
 class AssignmentBrowserFrame(tk.Frame):
-    def __init__(self, parent, controller, *a, **kw):
+    def __init__(self, parent, *a, **kw):
         super().__init__(parent, *a, **kw)
-        
-        
-        self.controller = controller
         
         self.selected_record = None 
 
@@ -104,9 +101,9 @@ class AssignmentBrowserFrame(tk.Frame):
         # self.assn_lst.treeview.tag_configure("incomplete", foreground="#ffffff", background="#ff0000")
         # self.assn_lst.treeview.tag_raise("sel")
         #tags
-        tv_tag_config(self.controller, self.assn_lst.treeview)
+        tv_tag_config( self.assn_lst.treeview)
         
-        self.__get_item_color = partial(color_treeview_item, self.controller)
+        self.__get_item_color = color_treeview_item
         
         tk.Grid.rowconfigure(self, 1, weight=1)
         tk.Grid.columnconfigure(self, 0, weight=1)
@@ -114,7 +111,7 @@ class AssignmentBrowserFrame(tk.Frame):
         self.refresh_treeview()
     
     def edit_tags_overall(self):
-        dialogs.EditTags(self, self.controller, partial(tv_tag_config, self.controller, self.assn_lst.treeview))
+        dialogs.EditTags(self, partial(tv_tag_config, self.assn_lst.treeview))
 
     def do_nothing(self):
         pass
@@ -127,7 +124,7 @@ class AssignmentBrowserFrame(tk.Frame):
         
     def edit_current_record(self):
         if self.selected_record:
-            dialogs.EditAssignment(self, self.controller, assignment=self.selected_record, callback=self.refresh_treeview)
+            dialogs.EditAssignment(self, assignment=self.selected_record, callback=self.refresh_treeview)
     
     def open_current_record(self):
         if self.selected_record:
@@ -159,12 +156,12 @@ class AssignmentBrowserFrame(tk.Frame):
         if self.selected_record:
             assn = self.selected_record
             cb = getattr(self, settings.get("gui.preferences", "mainwindow.AssignmentBrowserFrame.ViewTagsDialog.onupdate"), self.refresh_treeview)
-            dialogs.ViewTags(self, self.controller, assignment=self.selected_record, callback=cb)
+            dialogs.ViewTags(self, assignment=self.selected_record, callback=cb)
         else:
             messagebox.showinfo("Info", "Please select a record.")
 
     def filter_assn(self):
-        dialogs.FilterTags(self, self.controller, callback=self.load_data_treeview)
+        dialogs.FilterTags(self, callback=self.load_data_treeview)
     
     def view_current_record(self):
         if self.selected_record:
@@ -200,12 +197,12 @@ class AssignmentBrowserFrame(tk.Frame):
             self.selected_record = None
     
     def add_new(self):
-        dialogs.NewAssignment(self, self.controller, callback=self.refresh_treeview)
+        dialogs.NewAssignment(self, callback=self.refresh_treeview)
     
     def refresh_treeview(self):
         self.toolbar_refresh["text"] = "Refresh"
         self.assn_lst.clear()
-        self.assn_lst.extend(self.controller.list_all_assignments(), tag_func=self.__get_item_color)
+        self.assn_lst.extend(controller.list_all_assignments(), tag_func=self.__get_item_color)
         self.assn_lst.treeview.yview_moveto(1)
 
     def load_treeview_customsql(self):
@@ -214,7 +211,7 @@ class AssignmentBrowserFrame(tk.Frame):
         if res:
             self.toolbar_refresh["text"] = "Clear"
             self.assn_lst.clear()
-            self.assn_lst.extend(self.controller.list_all_assignments_customsql(res), tag_func=self.__get_item_color)
+            self.assn_lst.extend(controller.list_all_assignments_customsql(res), tag_func=self.__get_item_color)
     
     def load_data_treeview(self, data):
         self.toolbar_refresh["text"] = "Clear"
@@ -226,7 +223,7 @@ class AssignmentBrowserFrame(tk.Frame):
         term = simpledialog.askstring("Search by Name", "Enter Assignment Name/Substring (escape % and _ characters):")
         if term is not None:
             self.assn_lst.clear()
-            self.assn_lst.extend(self.controller.search_assignment_by_name_instr(term))
+            self.assn_lst.extend(controller.search_assignment_by_name_instr(term))
             self.assn_lst.treeview.yview_moveto(0)
             self.toolbar_refresh["text"] = "Clear Search"
 
@@ -234,7 +231,7 @@ class AssignmentBrowserFrame(tk.Frame):
         term = simpledialog.askstring("Search by UID", "Enter Assignment UID/Substring (escape % and _ characters):")
         if term is not None:
             self.assn_lst.clear()
-            self.assn_lst.extend(self.controller.search_uid_by_name_instr(term))
+            self.assn_lst.extend(controller.search_uid_by_name_instr(term))
             self.assn_lst.treeview.yview_moveto(0)
             self.toolbar_refresh["text"] = "Clear Search"
     
@@ -242,7 +239,7 @@ class AssignmentBrowserFrame(tk.Frame):
         term = simpledialog.askinteger("Search by ID", "Enter Assignment ID")
         if term is not None:
             self.assn_lst.clear()
-            res = self.controller.get_assignment_by_id(term)
+            res = controller.get_assignment_by_id(term)
             if res:
                 self.assn_lst.extend((res,))
                 self.assn_lst.treeview.yview_moveto(0)
@@ -254,7 +251,7 @@ class AssignmentBrowserFrame(tk.Frame):
         term = simpledialog.askstring("Search by UID", "Enter Assignment UID")
         if term is not None:
             self.assn_lst.clear()
-            res = self.controller.get_assignment_by_uid(term)
+            res = controller.get_assignment_by_uid(term)
             if res:
                 self.assn_lst.extend((res,))
                 self.assn_lst.treeview.yview_moveto(0)
@@ -274,11 +271,11 @@ class AssignmentBrowserFrame(tk.Frame):
     #         ('Gurutracker eXport Package', '*.gxp')],
     #         defaultextension='.gxp')
     #     if fname:
-    #         gurutracker.helpers.exporter.export(self.config, self.controller, fname)
+    #         gurutracker.helpers.exporter.export(self.config, controller, fname)
     #         messagebox.showinfo("Finished", "Export finished.")
     
     # def import_all(self):
-    #     cur = self.controller.con.cursor()
+    #     cur = controller.con.cursor()
     #     cur.execute("SELECT COUNT(*) FROM tutor;")
         
     #     if cur.fetchone()[0] == 0:
@@ -286,7 +283,7 @@ class AssignmentBrowserFrame(tk.Frame):
     #             ('Gurutracker eXport Package', '*.gxp')])
     #         if fname:
     #             try:
-    #                 gurutracker.helpers.exporter.import_(self.config, self.controller, fname)
+    #                 gurutracker.helpers.exporter.import_(self.config, controller, fname)
     #             except gurutracker.helpers.exporter.VersionMismatchError:
     #                 messagebox.showerror("Error", "This file is of an unsupported GXP version.")
     #             except:
@@ -299,15 +296,12 @@ class AssignmentBrowserFrame(tk.Frame):
     #     cur.close()
 
     def images_to_pdf(self):
-        gurutracker.views.pdftools.ImagesToPDF(self, self.controller, self.selected_record, self.refresh_treeview)
+        gurutracker.views.pdftools.ImagesToPDF(self, self.selected_record, self.refresh_treeview)
 
 
 class TutorBrowserFrame(tk.Frame):
-    def __init__(self, parent, controller, *a, **kw):
+    def __init__(self, parent, *a, **kw):
         super().__init__(parent, *a, **kw)
-        
-        
-        self.controller = controller
         
         self.selected_record = None 
 
@@ -330,14 +324,14 @@ class TutorBrowserFrame(tk.Frame):
         tk.Grid.rowconfigure(self, 1, weight=1)
         tk.Grid.columnconfigure(self, 0, weight=1)
         
-        self.tutor_list.extend(self.controller.list_tutors())
+        self.tutor_list.extend(controller.list_tutors())
         
     def refresh_treeview(self):
         self.tutor_list.clear()
-        self.tutor_list.extend(self.controller.list_tutors())
+        self.tutor_list.extend(controller.list_tutors())
         
     def add_new(self):
-        dialogs.NewTutor(self, self.controller, callback=self.refresh_treeview)
+        dialogs.NewTutor(self, callback=self.refresh_treeview)
     
     def view_record(self):
         if self.selected_record:
@@ -362,11 +356,8 @@ class TutorBrowserFrame(tk.Frame):
 
 
 class NotesFrame(tk.Frame):
-    def __init__(self, parent, controller, *a, **kw):
+    def __init__(self, parent, *a, **kw):
         super().__init__(parent, *a, **kw)
-        
-        
-        self.controller = controller
 
         self.toolbar = ToolBar(self)
         self.toolbar.grid(row=0, column=0, sticky='nsew')
@@ -402,11 +393,8 @@ class NotesFrame(tk.Frame):
 
 
 class MainWindow(tk.Tk):
-    def __init__(self, controller):
+    def __init__(self):
         super().__init__()
-        
-        
-        self.controller = controller
         
         self.selected_record = None
         
@@ -431,16 +419,16 @@ class MainWindow(tk.Tk):
         
         self.notebook = ttk.Notebook(self)
         
-        self.assignment_frame = AssignmentBrowserFrame(self.notebook, self.controller)
+        self.assignment_frame = AssignmentBrowserFrame(self.notebook)
         self.assignment_frame.pack(fill= tk.BOTH, expand=True)
         self.notebook.add(self.assignment_frame, text="Assignments")
         
-        self.tutor_frame = TutorBrowserFrame(self.notebook, self.controller)
+        self.tutor_frame = TutorBrowserFrame(self.notebook)
         self.tutor_frame.pack(fill= tk.BOTH, expand=True)
         self.notebook.add(self.tutor_frame, text="Tutors")
         
         if settings.getboolean("notes", "enabled"):
-            self.notes_frame = NotesFrame(self.notebook, self.controller)
+            self.notes_frame = NotesFrame(self.notebook)
             self.notes_frame.pack(fill= tk.BOTH, expand=True)
             self.notebook.add(self.notes_frame, text="Notes")
         
@@ -459,11 +447,11 @@ class MainWindow(tk.Tk):
             ('Gurutracker eXport Package', '*.gxp')],
             defaultextension='.gxp')
         if fname:
-            gurutracker.helpers.exporter.export(settings, self.controller, fname)
+            gurutracker.helpers.exporter.export(fname)
             messagebox.showinfo("Finished", "Export finished.")
     
     def import_all_data(self):
-        cur = self.controller.con.cursor()
+        cur = controller.con.cursor()
         cur.execute("SELECT COUNT(*) FROM tutor;")
         
         if cur.fetchone()[0] == 0:
@@ -471,7 +459,7 @@ class MainWindow(tk.Tk):
                 ('Gurutracker eXport Package', '*.gxp')])
             if fname:
                 try:
-                    gurutracker.helpers.exporter.import_(settings, self.controller, fname)
+                    gurutracker.helpers.exporter.import_(fname)
                 except gurutracker.helpers.exporter.VersionMismatchError:
                     messagebox.showerror("Error", "This file is of an unsupported GXP version.")
                 except:

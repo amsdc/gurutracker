@@ -41,8 +41,8 @@ from gurutracker.database.base import Base
 from gurutracker.database.objects import Tutor, Assignment, Tag
 
 class Controller(Base):
-    def __init__(self, filename):
-        self.con = sqlite3.connect(filename)
+    def __init__(self, connection):
+        self.con = connection
         self._createall()
 
     def _createall(self):

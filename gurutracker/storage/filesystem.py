@@ -1,7 +1,7 @@
 from gurutracker.storage.base import Base
 
 class Filesystem(Base):
-    def __init__(self, config):
+    def __init__(self):
         pass
     
     def link_file(self, fp, assignment):

@@ -1,5 +1,17 @@
+class Subject(object):
+    def __init__(self, id=None, name=None, desc=None, uidentifier=None):
+        self.id = id
+        self.name = name
+        self.desc = desc
+        self.uidentifier = uidentifier
+    
+    def __repr__(self):
+        return "<Tutor {}, name={}, desc={}, uidentifier={}>".format(
+            self.id, self.name, self.desc, self.uidentifier
+        )
+
 class Tutor(object):
-    def __init__(self, id=None, name=None, uidentifier=None, subject=None, level=None):
+    def __init__(self, id=None, name=None, uidentifier=None, subject=None):
         """__init__
 
         The Tutor object represent a single tutor.
@@ -10,19 +22,16 @@ class Tutor(object):
             name (str, optional):
                 Name of the tutor. Defaults to None.
             uid (str, optional): Tutor UID. Defaults to None.
-            subject (str, optional): Subject. Defaults to None.
-            level (level, optional):
-                Tutor level. Must be in VALID_LEVELS. Defaults to None.
+            subject (str, optional): Subject object. Defaults to None.
         """
         self.id = id
         self.name = name
         self.uidentifier = uidentifier
         self.subject = subject
-        self.level = level
     
     def __repr__(self):
-        return "<Tutor {}, name={}, uidentifier={}, subject={}, level={}>".format(
-            self.id, self.name, self.uidentifier, self.subject, self.level
+        return "<Tutor {}, name={}, uidentifier={}, subject={}>".format(
+            self.id, self.name, self.uidentifier, self.subject
         )
 
 

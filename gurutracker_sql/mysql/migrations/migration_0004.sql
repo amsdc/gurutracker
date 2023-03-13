@@ -3,7 +3,7 @@ CREATE TABLE `subject` (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
     `name` VARCHAR(100) NOT NULL, -- subject name, e.g. Physics 12
     `desc` TEXT, -- description e.g Physics is the study of nature
-    `uidentifier` VARCHAR(50) NOT NULL
+    `uidentifier` VARCHAR(50) UNIQUE NOT NULL
 );
 
 ALTER TABLE `tutor` CHANGE `subject` `subid` INT;

@@ -6,6 +6,7 @@ import tempfile
 import zipfile
 
 import gurutracker
+from gurutracker.globals import settings as config, controller
 from gurutracker.helpers.fileopener import filepath, valid_filepath
 
 
@@ -28,7 +29,7 @@ def zip_directory(src, dst):
         _zipdir(src, zipf)
 
 
-def export(config, controller, output):
+def export(output):
     # Create temp dir
     tempdir = tempfile.TemporaryDirectory()
     
@@ -93,7 +94,7 @@ def export(config, controller, output):
     tempdir.cleanup()
 
 
-def import_(config, controller, ifile):
+def import_(ifile):
     tempdir = tempfile.TemporaryDirectory()
     
     d = "%s" if config.get("database", "type") == "mysql" else "?"

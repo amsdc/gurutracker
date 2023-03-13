@@ -1,22 +1,61 @@
 import pymysql
 
 from gurutracker.database.base import Base
-from gurutracker.database.objects import Tutor, Assignment, Tag
+from gurutracker.database.objects import Subject, Tutor, Assignment, Tag
 
 class Controller(Base):
     def __init__(self, connection):
         self.con = connection
+    
+    def list_all_subjects(self):
+        """list_all_subjects 
+        
+        List all subjects.
+        """
+        cur = self.con.cursor()
+        cur.execute("SELECT `id`, `name`, `desc`, `uidentifier` FROM `subject`;")
+        res = []
+        for item in cur.fetchall():
+            res.append(Subject(id=item[1],
+                               name=item[2],
+                               desc=item[3],
+                               uidentifier=item[4]))
+        cur.close()
+        return res
+    
+    def add_subject(self, subject):
+        cur = self.con.cursor()
+        cur.execute("INSERT INTO `subject` (`name`, `desc`, `uidentifier`) VALUES (%s, %s, %s);", (subject.name, subject.desc, subject.uidentifier))
+        self.con.commit()
+        cur.execute("SELECT `id` FROM `subject` WHERE `uidentifier`=%s LIMIT 1;", (subject.uidentifier,))
+        subject.id = cur.fetchone()[0]
+        cur.close()
+    
+    def edit_subject(self, subject):
+        cur = self.con.cursor()
+        cur.execute("UPDATE `subject` SET `name`=%s, `desc`=%s, `uidentifier`=%s WHERE `id`=%s", (subject.name, subject.desc, subject.uidentifier, subject.id))
+        self.con.commit()
+        cur.close()
+    
+    def delete_subject(self, subject):
+        cur = self.con.cursor()
+        cur.execute("DELETE FROM `subject` WHERE  `id`=%s", (subject.id,))
+        self.con.commit()
+        cur.close()
         
     def list_all_assignments(self):
         cur = self.con.cursor()
-        cur.execute("SELECT `assignment`.`id`, `assignment`.`name`, `assignment`.`uidentifier`, `assignment`.`type`, `assignment`.`tid`, `tutor`.`name`, `tutor`.`uidentifier`, `tutor`.`subject`, `tutor`.`level` FROM `assignment` JOIN `tutor` ON `assignment`.`tid` = `tutor`.`id` ORDER BY `assignment`.`id` ASC;")
+        cur.execute("SELECT `assignment`.`id`, `assignment`.`name`, `assignment`.`uidentifier`, `assignment`.`type`, `assignment`.`tid`, `tutor`.`name`, `tutor`.`uidentifier`, `tutor`.`subid`, `subject`.`name`, `subject`.`desc`, `subject`.`uidentifier` FROM `assignment` JOIN `tutor` ON `assignment`.`tid` = `tutor`.`id` JOIN `subject` ON `tutor`.`subid` = `subject`.`id` ORDER BY `assignment`.`id` ASC;")
         res = []
         for item in cur.fetchall():
+            sub = Subject(id=item[7],
+                          name=item[8],
+                          desc=item[9],
+                          uidentifier=item[10])
             teac = Tutor(id=item[4],
                          name=item[5],
                          uidentifier=item[6],
-                         subject=item[7],
-                         level=item[8])
+                         subject=sub)
             ass = Assignment(id=item[0],
                              name=item[1],
                              uidentifier=item[2],
@@ -28,14 +67,17 @@ class Controller(Base):
 
     def list_all_assignments_customsql(self, custom_sql):
         cur = self.con.cursor()
-        cur.execute("SELECT `assignment`.`id`, `assignment`.`name`, `assignment`.`uidentifier`, `assignment`.`type`, `assignment`.`tid`, `tutor`.`name`, `tutor`.`uidentifier`, `tutor`.`subject`, `tutor`.`level` FROM `assignment` JOIN `tutor` ON `assignment`.`tid` = `tutor`.`id`" + custom_sql + ";")
+        cur.execute("SELECT `assignment`.`id`, `assignment`.`name`, `assignment`.`uidentifier`, `assignment`.`type`, `assignment`.`tid`, `tutor`.`name`, `tutor`.`uidentifier`, `tutor`.`subid`, `subject`.`name`, `subject`.`desc`, `subject`.`uidentifier` FROM `assignment` JOIN `tutor` ON `assignment`.`tid` = `tutor`.`id` JOIN `subject` ON `tutor`.`subid` = `subject`.`id`" + custom_sql + ";")
         res = []
         for item in cur.fetchall():
+            sub = Subject(id=item[7],
+                          name=item[8],
+                          desc=item[9],
+                          uidentifier=item[10])
             teac = Tutor(id=item[4],
                          name=item[5],
                          uidentifier=item[6],
-                         subject=item[7],
-                         level=item[8])
+                         subject=sub)
             ass = Assignment(id=item[0],
                              name=item[1],
                              uidentifier=item[2],
@@ -47,14 +89,17 @@ class Controller(Base):
         
     def get_assignment_by_id(self, id):
         cur = self.con.cursor()
-        cur.execute("SELECT `assignment`.`id`, `assignment`.`name`, `assignment`.`uidentifier`, `assignment`.`type`, `assignment`.`tid`, `tutor`.`name`, `tutor`.`uidentifier`, `tutor`.`subject`, `tutor`.`level` FROM `assignment`, `tutor` WHERE `assignment`.`tid` = `tutor`.`id` AND `assignment`.`id` = %s LIMIT 1;", (id,))
+        cur.execute("SELECT `assignment`.`id`, `assignment`.`name`, `assignment`.`uidentifier`, `assignment`.`type`, `assignment`.`tid`, `tutor`.`name`, `tutor`.`uidentifier`, `tutor`.`subid`, `subject`.`name`, `subject`.`desc`, `subject`.`uidentifier` FROM `assignment` JOIN `tutor` ON `assignment`.`tid` = `tutor`.`id` JOIN `subject` ON `tutor`.`subid` = `subject`.`id` WHERE `assignment`.`id`=%s LIMIT 1;", (id,))
         item = cur.fetchone()
         if item:
+            sub = Subject(id=item[7],
+                          name=item[8],
+                          desc=item[9],
+                          uidentifier=item[10])
             teac = Tutor(id=item[4],
                          name=item[5],
                          uidentifier=item[6],
-                         subject=item[7],
-                         level=item[8])
+                         subject=sub)
             ass = Assignment(id=item[0],
                              name=item[1],
                              uidentifier=item[2],
