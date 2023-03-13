@@ -79,7 +79,19 @@ class Controller(Base):
     CONSTRAINT FK_AssignmentTag_Tag FOREIGN KEY (`tag_id`)
     REFERENCES `tag`(`id`)
 );""")
-        
+    
+    def add_subject(self):
+        pass
+    
+    def edit_subject(self):
+        pass
+    
+    def delete_subject(self):
+        pass
+    
+    def list_all_subjects(self):
+        pass
+    
     def list_all_assignments(self):
         """List all assignments with their corresponding tutors.
 

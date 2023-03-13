@@ -28,3 +28,5 @@ ALTER TABLE `assignment_tag` ADD CONSTRAINT FK_AssignmentTag_Tag
 FOREIGN KEY (`tag_id`) REFERENCES `tag`(`id`) ON UPDATE CASCADE
 ON DELETE CASCADE;
 
+-- tutor uid unique
+ALTER TABLE `tutor` MODIFY `uidentifier` VARCHAR(50) UNIQUE NOT NULL;

@@ -186,14 +186,17 @@ class Controller(Base):
 
     def list_tutors(self):
         cur = self.con.cursor()
-        cur.execute("SELECT `tutor`.`id`, `tutor`.`name`, `tutor`.`uidentifier`, `tutor`.`subject`, `tutor`.`level` FROM `tutor`;")
+        cur.execute("SELECT `tutor`.`id`, `tutor`.`name`, `tutor`.`uidentifier`, `tutor`.`subid`, `subject`.`name`, `subject`.`desc`, `subject`.`uidentifier` FROM `tutor` JOIN `subject` ON `tutor`.`subid` = `subject`.`id` ORDER BY `tutor`.`id` ASC;")
         res = []
         for item in cur.fetchall():
+            sub = Subject(id=item[3],
+                          name=item[4],
+                          desc=item[5],
+                          uidentifier=item[6])
             teac = Tutor(id=item[0],
                          name=item[1],
                          uidentifier=item[2],
-                         subject=item[3],
-                         level=item[4])
+                         subject=sub)
             res.append(teac)
         cur.close()
         return res
@@ -202,13 +205,24 @@ class Controller(Base):
         raise NotImplementedError
 
     def add_tutor(self, tutor):
-        raise NotImplementedError
+        cur = self.con.cursor()
+        cur.execute("INSERT INTO `tutor` (`name`, `uidentifier`, `subid`) VALUES (%s, %s, %s)", (tutor.name, tutor.uidentifier, tutor.subject.id))
+        self.con.commit()
+        cur.execute("SELECT `id` FROM `tutor` WHERE `uidentifier`=%s LIMIT 1;", (tutor.uidentifier,))
+        tutor.id = cur.fetchone()[0]
+        cur.close()
 
     def edit_tutor(self, tutor):
-        raise NotImplementedError
+        cur = self.con.cursor()
+        cur.execute("UPDATE `tutor` SET `name`=%s, `uidentifier`=%s, `subid`=%s WHERE `id`=%s;", (tutor.name, tutor.uidentifier, tutor.subject.id, tutor.id))
+        self.con.commit()
+        cur.close()
 
     def delete_tutor(self, tutor):
-        raise NotImplementedError
+        cur = self.con.cursor()
+        cur.execute("DELETE FROM `tutor` WHERE `id`=%s", (tutor.id,))
+        self.con.commit()
+        cur.close()
 
     def list_tags(self):
         cur = self.con.cursor()

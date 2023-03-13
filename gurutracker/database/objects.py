@@ -44,6 +44,17 @@ class Tutor(object):
         return "<Tutor {}, name={}, uidentifier={}, subject={}>".format(
             self.id, self.name, self.uidentifier, self.subject
         )
+        
+    def __eq__(self, __o):
+        if isinstance(__o, Tutor):
+            if self.id and __o.id:
+                return self.id == __o.id
+            elif self.uidentifier and __o.uidentifier:
+                return self.uidentifier == __o.uidentifier
+            else:
+                raise ValueError("no way to determine equality")
+        else:
+            raise TypeError("cannot check equality")
 
 
 class Assignment(object):
@@ -71,6 +82,17 @@ class Assignment(object):
         return "<Assignment {}, name={}, uidentifier={}, type={}, tutor={}>".format(
             self.id, self.name, self.uidentifier, self.type, self.tutor
         )
+    
+    def __eq__(self, __o):
+        if isinstance(__o, Assignment):
+            if self.id and __o.id:
+                return self.id == __o.id
+            elif self.uidentifier and __o.uidentifier:
+                return self.uidentifier == __o.uidentifier
+            else:
+                raise ValueError("no way to determine equality")
+        else:
+            raise TypeError("cannot check equality")
 
 
 class Tag(object):
@@ -84,3 +106,12 @@ class Tag(object):
         return "<Tag {}, text={}, fgcolor={}, bgcolor={}>".format(
             self.id, self.text, self.fgcolor, self.bgcolor
         )
+    
+    def __eq__(self, __o):
+        if isinstance(__o, Tag):
+            if self.id and __o.id:
+                return self.id == __o.id
+            else:
+                raise ValueError("no way to determine equality")
+        else:
+            raise TypeError("cannot check equality")
