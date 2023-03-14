@@ -6,6 +6,7 @@ import gurutracker.globals
 import gurutracker.database.objects
 import gurutracker.database.mysql
 
+
 class TestObjects(unittest.TestCase):
     def test_equalness_subject(self):
         sub1 = gurutracker.database.objects.Subject(id=1, uidentifier="DDD")
@@ -85,10 +86,10 @@ class TestMySQLController(unittest.TestCase):
         # fname = gurutracker.config.py_configparser.Config("testing.ini")
         # fname.read_config()
         gurutracker.globals.settings.set("database", "type", "mysql")
-        gurutracker.globals.settings.set("database", "host", "localhost")
-        gurutracker.globals.settings.set("database", "user", "root")
-        gurutracker.globals.settings.set("database", "password", os.environ.get("GURUTRACKER_TESTING_MYSQLPW"))
-        gurutracker.globals.settings.set("database", "database", "gurutrackertest")
+        # gurutracker.globals.settings.set("database", "host", "localhost")
+        # gurutracker.globals.settings.set("database", "user", "root")
+        # gurutracker.globals.settings.set("database", "password", os.environ.get("GURUTRACKER_TESTING_MYSQLPW"))
+        # gurutracker.globals.settings.set("database", "database", "gurutrackertest")
         gurutracker.globals.settings.write()
         
         importlib.reload(gurutracker.globals)
@@ -227,6 +228,239 @@ class TestMySQLController(unittest.TestCase):
         gurutracker.globals.controller.delete_tutor(tutor)
         
         self.assertEqual(len(gurutracker.globals.controller.list_tutors()), 0)
+        
+    def test_add_assignment(self):
+        sub = gurutracker.database.objects.Subject(name="Physics",
+                                                   desc="Physics is the study of nature",
+                                                   uidentifier="PHY")
+        gurutracker.globals.controller.add_subject(sub)
+        
+        tutor = gurutracker.database.objects.Tutor(name="Richard Feymann",
+                                                   uidentifier="FEYNMANN",
+                                                   subject=sub)
+        gurutracker.globals.controller.add_tutor(tutor)
+        
+        ass = gurutracker.database.objects.Assignment(name="The Suction Tap",
+                                                      uidentifier="FLUIDS/SUCTIONTAP",
+                                                      type="worksheet",
+                                                      tutor=tutor)
+        gurutracker.globals.controller.add_assignment(ass)
+        self.assertIsNotNone(ass.id)
+    
+    def test_add_unique_assignment(self):
+        sub = gurutracker.database.objects.Subject(name="Physics",
+                                                   desc="Physics is the study of nature",
+                                                   uidentifier="PHY")
+        gurutracker.globals.controller.add_subject(sub)
+        
+        tutor = gurutracker.database.objects.Tutor(name="Richard Feymann",
+                                                   uidentifier="FEYNMANN",
+                                                   subject=sub)
+        gurutracker.globals.controller.add_tutor(tutor)
+        
+        ass = gurutracker.database.objects.Assignment(name="The Suction Tap",
+                                                      uidentifier="FLUIDS/SUCTIONTAP",
+                                                      type="worksheet",
+                                                      tutor=tutor)
+        gurutracker.globals.controller.add_assignment(ass)
+        self.assertIsNotNone(ass.id)
+        
+        try:
+            gurutracker.globals.controller.add_assignment(ass)
+        except:
+            self.assertTrue(1)
+        else:
+            self.assertTrue(0)
+        
+    def test_list_assignment(self):
+        sub = gurutracker.database.objects.Subject(name="Physics",
+                                                   desc="Physics is the study of nature",
+                                                   uidentifier="PHY")
+        gurutracker.globals.controller.add_subject(sub)
+        
+        tutor = gurutracker.database.objects.Tutor(name="Richard Feymann",
+                                                   uidentifier="FEYNMANN",
+                                                   subject=sub)
+        gurutracker.globals.controller.add_tutor(tutor)
+        
+        ass = gurutracker.database.objects.Assignment(name="The Suction Tap",
+                                                      uidentifier="FLUIDS/SUCTIONTAP",
+                                                      type="worksheet",
+                                                      tutor=tutor)
+        gurutracker.globals.controller.add_assignment(ass)
+        
+        ass2 = gurutracker.database.objects.Assignment(name="Contour Integration",
+                                                      uidentifier="TOOLS/MATH/CALCULUS/INT/CONTOUR",
+                                                      type="worksheet",
+                                                      tutor=tutor)
+        gurutracker.globals.controller.add_assignment(ass2)
+        
+        la = gurutracker.globals.controller.list_all_assignments()
+        
+        self.assertListEqual(la, [ass, ass2])
+        self.assertEqual(la[0].name, "The Suction Tap")
+        self.assertEqual(la[0].tutor, tutor)
+        self.assertEqual(la[0].tutor.subject, sub)
+        
+    def test_edit_assignment(self):
+        sub = gurutracker.database.objects.Subject(name="Physics",
+                                                   desc="Physics is the study of nature",
+                                                   uidentifier="PHY")
+        gurutracker.globals.controller.add_subject(sub)
+        
+        tutor = gurutracker.database.objects.Tutor(name="Richard Feymann",
+                                                   uidentifier="FEYNMANN",
+                                                   subject=sub)
+        gurutracker.globals.controller.add_tutor(tutor)
+        
+        tutr = gurutracker.database.objects.Tutor(name="HC Verma",
+                                                   uidentifier="HCV",
+                                                   subject=sub)
+        gurutracker.globals.controller.add_tutor(tutr)
+        
+        ass = gurutracker.database.objects.Assignment(name="The Suction Tap",
+                                                      uidentifier="FLUIDS/SUCTIONTAP",
+                                                      type="worksheet",
+                                                      tutor=tutor)
+        gurutracker.globals.controller.add_assignment(ass)
+        
+        ass.tutor = tutr
+        gurutracker.globals.controller.edit_assignment(ass)
+        la = gurutracker.globals.controller.list_all_assignments()[0]
+        self.assertEqual(la.tutor, tutr)
+    
+    def test_del_assignment(self):
+        sub = gurutracker.database.objects.Subject(name="Physics",
+                                                   desc="Physics is the study of nature",
+                                                   uidentifier="PHY")
+        gurutracker.globals.controller.add_subject(sub)
+        
+        tutor = gurutracker.database.objects.Tutor(name="Richard Feymann",
+                                                   uidentifier="FEYNMANN",
+                                                   subject=sub)
+        gurutracker.globals.controller.add_tutor(tutor)
+        
+        ass = gurutracker.database.objects.Assignment(name="The Suction Tap",
+                                                      uidentifier="FLUIDS/SUCTIONTAP",
+                                                      type="worksheet",
+                                                      tutor=tutor)
+        gurutracker.globals.controller.add_assignment(ass)
+        
+        self.assertEqual(len(gurutracker.globals.controller.list_all_assignments()), 1)
+        
+        gurutracker.globals.controller.del_assignment(ass)
+        self.assertEqual(len(gurutracker.globals.controller.list_all_assignments()), 0)
+    
+    def test_add_tag(self):
+        tag = gurutracker.database.objects.Tag(text="Physics")
+        gurutracker.globals.controller.add_tag(tag)
+        
+        self.assertIsNotNone(tag.id)
+        
+        tag2 = gurutracker.database.objects.Tag(text="Fluids",
+                                                fgcolor="FF0000",
+                                                parent=tag)
+        gurutracker.globals.controller.add_tag(tag2)
+        
+        self.assertIsNotNone(tag2.id)
+    
+    def test_list_tags(self):
+        tag = gurutracker.database.objects.Tag(text="Physics")
+        gurutracker.globals.controller.add_tag(tag)
+        
+        tag2 = gurutracker.database.objects.Tag(text="Fluids",
+                                                fgcolor="FF0000",
+                                                parent=tag)
+        gurutracker.globals.controller.add_tag(tag2)
+        
+        tag3 = gurutracker.database.objects.Tag(text="Nonesence",
+                                                fgcolor="FF0000",
+                                                parent=tag2)
+        gurutracker.globals.controller.add_tag(tag3)
+        
+        la = gurutracker.globals.controller.list_tags()
+        
+        self.assertListEqual(la, [tag, tag2, tag3])
+        self.assertEqual(la[1].parent, tag)
+        self.assertEqual(la[2].parent, tag2)
+        self.assertEqual(la[2].parent.parent, tag)
+        
+    def test_list_tags_nopop(self):
+        tag = gurutracker.database.objects.Tag(text="Physics")
+        gurutracker.globals.controller.add_tag(tag)
+        
+        tag2 = gurutracker.database.objects.Tag(text="Fluids",
+                                                fgcolor="FF0000",
+                                                parent=tag)
+        gurutracker.globals.controller.add_tag(tag2)
+        
+        tag3 = gurutracker.database.objects.Tag(text="Nonesence",
+                                                fgcolor="FF0000",
+                                                parent=tag2)
+        gurutracker.globals.controller.add_tag(tag3)
+        
+        la = gurutracker.globals.controller.list_tags(populate_parents=False)
+        
+        self.assertListEqual(la, [tag, tag2, tag3])
+        self.assertIsNone(la[1].parent)
+        self.assertIsNone(la[2].parent)
+    
+    def test_edit_tags(self):
+        tag = gurutracker.database.objects.Tag(text="Physics")
+        gurutracker.globals.controller.add_tag(tag)
+        
+        tag2 = gurutracker.database.objects.Tag(text="Fluids",
+                                                fgcolor="FF0000",
+                                                parent=tag)
+        gurutracker.globals.controller.add_tag(tag2)
+        
+        tag3 = gurutracker.database.objects.Tag(text="Nonesence",
+                                                fgcolor="FF0000",
+                                                parent=tag2)
+        gurutracker.globals.controller.add_tag(tag3)
+        
+        tag3.parent = None
+        gurutracker.globals.controller.edit_tag(tag3)
+        
+        tag2.text = "Elephants"
+        gurutracker.globals.controller.edit_tag(tag2)
+        
+        la = gurutracker.globals.controller.list_tags()
+        
+        self.assertIsNone(la[2].parent)
+        self.assertEqual(la[1].text, "Elephants")
+        
+    def test_del_tags(self):
+        tag = gurutracker.database.objects.Tag(text="Physics")
+        gurutracker.globals.controller.add_tag(tag)
+        la = gurutracker.globals.controller.list_tags()
+        self.assertEqual(len(la), 1)
+        gurutracker.globals.controller.delete_tag(tag)
+        la = gurutracker.globals.controller.list_tags()
+        self.assertEqual(len(la), 0)
+        
+    def test_del_tags_nested(self):
+        tag = gurutracker.database.objects.Tag(text="Physics")
+        gurutracker.globals.controller.add_tag(tag)
+        
+        tag2 = gurutracker.database.objects.Tag(text="Fluids",
+                                                fgcolor="FF0000",
+                                                parent=tag)
+        gurutracker.globals.controller.add_tag(tag2)
+        
+        tag3 = gurutracker.database.objects.Tag(text="Nonesence",
+                                                fgcolor="FF0000",
+                                                parent=tag2)
+        gurutracker.globals.controller.add_tag(tag3)
+        
+        la = gurutracker.globals.controller.list_tags()
+        self.assertEqual(len(la), 3)
+        
+        # delete 2 deletes 3 too
+        gurutracker.globals.controller.delete_tag(tag2)
+        la = gurutracker.globals.controller.list_tags()
+        self.assertEqual(len(la), 1)
+        self.assertEqual(la[0], tag)
     
     def tearDown(self):
         cur = gurutracker.globals.controller.con.cursor()

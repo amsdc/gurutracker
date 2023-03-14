@@ -182,7 +182,10 @@ class Controller(Base):
         cur.close()
 
     def del_assignment(self, assignment):
-        raise NotImplementedError
+        cur = self.con.cursor()
+        cur.execute("DELETE FROM `assignment` WHERE `id`=%s", (assignment.id,))
+        self.con.commit()
+        cur.close()
 
     def list_tutors(self):
         cur = self.con.cursor()
@@ -223,42 +226,74 @@ class Controller(Base):
         cur.execute("DELETE FROM `tutor` WHERE `id`=%s", (tutor.id,))
         self.con.commit()
         cur.close()
-
-    def list_tags(self):
-        cur = self.con.cursor()
-        cur.execute("SELECT `tag`.`id`, `tag`.`text`, `tag`.`fgcolor`, `tag`.`bgcolor` FROM `tag`;")
-        res = []
-        for item in cur.fetchall():
-            tag = Tag(id=item[0],
-                      text=item[1],
-                      fgcolor=item[2],
-                      bgcolor=item[3])
-            res.append(tag)
-        cur.close()
-        return res
         
-    def search_tag_by_text_instr(self, text):
+    def get_tag_by_id(self, id, populate_parents=True):
         cur = self.con.cursor()
-        cur.execute("SELECT `tag`.`id`, `tag`.`text`, `tag`.`fgcolor`, `tag`.`bgcolor` FROM `tag` WHERE `tag`.`text` LIKE %s;", ("%"+text+"%",))
-        res = []
-        for item in cur.fetchall():
-            tag = Tag(id=item[0],
-                      text=item[1],
-                      fgcolor=item[2],
-                      bgcolor=item[3])
-            res.append(tag)
-        cur.close()
-        return res
-        
-    def get_tag(self, text):
-        cur = self.con.cursor()
-        cur.execute("SELECT `tag`.`id`, `tag`.`text`, `tag`.`fgcolor`, `tag`.`bgcolor` FROM `tag` WHERE `tag`.`text` = %s;", (text,))
+        cur.execute("SELECT `tag`.`id`, `tag`.`text`, `tag`.`fgcolor`, `tag`.`bgcolor`, `tag`.`parent_tag_id` FROM `tag` WHERE `id`=%s LIMIT 1;", (id,))
         item = cur.fetchone()
         if item:
+            if item[4] and populate_parents:
+                parent = self.get_tag_by_id(item[4])
+            else:
+                parent = None
+            tag = Tag(id=item[0],
+                        text=item[1],
+                        fgcolor=item[2],
+                        bgcolor=item[3],
+                        parent=parent)
+            cur.close()
+            return tag
+
+    def list_tags(self, populate_parents=True):
+        cur = self.con.cursor()
+        cur.execute("SELECT `tag`.`id`, `tag`.`text`, `tag`.`fgcolor`, `tag`.`bgcolor`, `tag`.`parent_tag_id` FROM `tag`;")
+        res = []
+        for item in cur.fetchall():
+            if item[4] and populate_parents:
+                parent = self.get_tag_by_id(item[4])
+            else:
+                parent = None
             tag = Tag(id=item[0],
                       text=item[1],
                       fgcolor=item[2],
-                      bgcolor=item[3])
+                      bgcolor=item[3],
+                      parent=parent)
+            res.append(tag)
+        cur.close()
+        return res
+        
+    def search_tag_by_text_instr(self, text, populate_parents=True):
+        cur = self.con.cursor()
+        cur.execute("SELECT `tag`.`id`, `tag`.`text`, `tag`.`fgcolor`, `tag`.`bgcolor`, `tag`.`parent_tag_id` FROM `tag` WHERE `tag`.`text` LIKE %s;", ("%"+text+"%",))
+        res = []
+        for item in cur.fetchall():
+            if item[4] and populate_parents:
+                parent = self.get_tag_by_id(item[4])
+            else:
+                parent = None
+            tag = Tag(id=item[0],
+                      text=item[1],
+                      fgcolor=item[2],
+                      bgcolor=item[3],
+                      parent=parent)
+            res.append(tag)
+        cur.close()
+        return res
+        
+    def get_tag(self, text, populate_parents=True):
+        cur = self.con.cursor()
+        cur.execute("SELECT `tag`.`id`, `tag`.`text`, `tag`.`fgcolor`, `tag`.`bgcolor`, `tag`.`parent_tag_id` FROM `tag` WHERE `tag`.`text` = %s;", (text,))
+        item = cur.fetchone()
+        if item:
+            if item[4] and populate_parents:
+                parent = self.get_tag_by_id(item[4])
+            else:
+                parent = None
+            tag = Tag(id=item[0],
+                        text=item[1],
+                        fgcolor=item[2],
+                        bgcolor=item[3],
+                        parent=parent)
         else:
             tag = None
         cur.close()
@@ -266,17 +301,23 @@ class Controller(Base):
 
     def add_tag(self, tag):
         cur = self.con.cursor()
-        cur.execute("INSERT INTO `tag` (`text`, `fgcolor`, `bgcolor`) VALUES (%s, %s, %s);", (tag.text, tag.fgcolor, tag.bgcolor))
+        cur.execute("INSERT INTO `tag` (`text`, `fgcolor`, `bgcolor`, `parent_tag_id`) VALUES (%s, %s, %s, %s);", (tag.text, tag.fgcolor, tag.bgcolor, tag.parent.id if tag.parent else None))
         self.con.commit()
         cur.execute("SELECT `id` FROM `tag` WHERE `text`=%s LIMIT 1;", (tag.text,))
         tag.id = cur.fetchone()[0]
         cur.close()
 
     def edit_tag(self, tag):
-        raise NotImplementedError
+        cur = self.con.cursor()
+        cur.execute("UPDATE `tag` SET `text`=%s, `fgcolor`=%s, `bgcolor`=%s, `parent_tag_id`=%s WHERE `id`=%s;", (tag.text, tag.fgcolor, tag.bgcolor, tag.parent.id if tag.parent else None, tag.id))
+        self.con.commit()
+        cur.close()
 
     def delete_tag(self, tag):
-        raise NotImplementedError
+        cur = self.con.cursor()
+        cur.execute("DELETE FROM `tag` WHERE `id`=%s;", (tag.id, ))
+        self.con.commit()
+        cur.close()
 
     def tag_assignment(self, assignment, tag):
         cur = self.con.cursor()
@@ -290,29 +331,37 @@ class Controller(Base):
         self.con.commit()
         cur.close()
         
-    def assignment_tags(self, assignment):
+    def assignment_tags(self, assignment, populate_parents=True):
         cur = self.con.cursor()
-        cur.execute("SELECT `tag`.`id`, `tag`.`text`, `tag`.`fgcolor`, `tag`.`bgcolor` FROM `assignment`, `assignment_tag`, `tag` WHERE `assignment`.`id` = `assignment_tag`.`assignment_id` AND `assignment_tag`.`tag_id` = `tag`.`id` AND `assignment`.`id` = %s;", (assignment.id,))
+        cur.execute("SELECT `tag`.`id`, `tag`.`text`, `tag`.`fgcolor`, `tag`.`bgcolor`, `tag`.`parent_tag_id` FROM `assignment`, `assignment_tag`, `tag` WHERE `assignment`.`id` = `assignment_tag`.`assignment_id` AND `assignment_tag`.`tag_id` = `tag`.`id` AND `assignment`.`id` = %s;", (assignment.id,))
         res = []
         for item in cur.fetchall():
+            if item[4] and populate_parents:
+                parent = self.get_tag_by_id(item[4])
+            else:
+                parent = None
             tag = Tag(id=item[0],
                       text=item[1],
                       fgcolor=item[2],
-                      bgcolor=item[3])
+                      bgcolor=item[3],
+                      parent=parent)
             res.append(tag)
         cur.close()
         return res
         
     def tagged_assignments(self, tag):
         cur = self.con.cursor()
-        cur.execute("SELECT `assignment`.`id`, `assignment`.`name`, `assignment`.`uidentifier`, `assignment`.`type`, `assignment`.`tid`, `tutor`.`name`, `tutor`.`uidentifier`, `tutor`.`subject`, `tutor`.`level` FROM `assignment` JOIN `tutor` ON `assignment`.`tid` = `tutor`.`id` JOIN `assignment_tag` ON `assignment`.`id` = `assignment_tag`.`assignment_id` JOIN `tag` ON `assignment_tag`.`tag_id` = `tag`.`id` WHERE `tag`.`id` = %s;", (tag.id,))
+        cur.execute("SELECT `assignment`.`id`, `assignment`.`name`, `assignment`.`uidentifier`, `assignment`.`type`, `assignment`.`tid`, `tutor`.`name`, `tutor`.`uidentifier`, `tutor`.`subid`, `subject`.`name`, `subject`.`desc`, `subject`.`uidentifier` FROM `assignment` JOIN `tutor` ON `assignment`.`tid` = `tutor`.`id` JOIN `subject` ON `subject`.`id` = `tutor`.`subid` JOIN `assignment_tag` ON `assignment`.`id` = `assignment_tag`.`assignment_id` JOIN `tag` ON `assignment_tag`.`tag_id` = `tag`.`id` WHERE `tag`.`id` = %s;", (tag.id,))
         res = []
         for item in cur.fetchall():
+            sub = Subject(id=item[7],
+                          name=item[8],
+                          desc=item[9],
+                          uidentifier=item[10])
             teac = Tutor(id=item[4],
                          name=item[5],
                          uidentifier=item[6],
-                         subject=item[7],
-                         level=item[8])
+                         subject=sub)
             ass = Assignment(id=item[0],
                              name=item[1],
                              uidentifier=item[2],
@@ -324,6 +373,4 @@ class Controller(Base):
 
     def sql_query(self):
         raise NotImplementedError
-"""
-SELECT `assignment`.`id`, `assignment`.`name`, `assignment`.`uidentifier`, `assignment`.`type`, `assignment`.`tid`, `tutor`.`name`, `tutor`.`uidentifier`, `tutor`.`subject`, `tutor`.`level`, `tag`.`text` FROM `assignment` JOIN `tutor` ON `assignment`.`tid` = `tutor`.`id` JOIN `assignment_tag` ON `assignment`.`id` = `assignment_tag`.`assignment_id` JOIN `tag` ON `assignment_tag`.`tag_id` = `tag`.`id`;
-"""
+

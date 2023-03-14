@@ -6,7 +6,7 @@ class AssignmentListView(ttk.Treeview):
     def __init__(self, parent, *a, showcols=None, **kw):
         super().__init__(parent, *a, **kw)
         
-        cols = ["assignment.id", "assignment.name", "assignment.uidentifier", "assignment.type", "tutor.id", "tutor.name", "tutor.uidentifier", "tutor.subject", "tutor.level"]
+        cols = ["assignment.id", "assignment.name", "assignment.uidentifier", "assignment.type", "tutor.id", "tutor.name", "tutor.uidentifier", "subject.id", "subject.name", "subject.desc", "subject.uidentifier", ".assignment.uidentifier"]
         self["columns"] = cols
         self['show'] = 'headings'
         self["selectmode"] = tk.BROWSE
@@ -14,19 +14,24 @@ class AssignmentListView(ttk.Treeview):
         if showcols:
             self["displaycolumns"] = showcols
         else:
-            self["displaycolumns"] = ("assignment.id", "assignment.name", "assignment.uidentifier", "assignment.type", "tutor.name", "tutor.subject", "tutor.level")
+            self["displaycolumns"] = ("assignment.id", "assignment.name", ".assignment.uidentifier", "assignment.type", "tutor.name", "subject.name")
         
         self.heading('assignment.id', text='A#')
         self.heading('assignment.name', text='Name')
-        self.heading('assignment.uidentifier', text='UID')
+        self.heading('assignment.uidentifier', text='Assignment UID')
         self.heading('assignment.type', text='Type')
         self.heading('tutor.id', text='T#')
         self.heading('tutor.name', text='Tutor')
         self.heading('tutor.uidentifier', text='Tutor UID')
-        self.heading('tutor.subject', text='Subject')
-        self.heading('tutor.level', text='Level')
+        self.heading('subject.id', text='S#')
+        self.heading('subject.name', text='Subject')
+        self.heading('subject.desc', text='Subject Description')
+        self.heading('subject.uidentifier', text='Subject UID')
+        self.heading('.assignment.uidentifier', text='UID') # Subject UID/Tutor UID/Assignment UID
         
-        self.column('assignment.id', width=40)
+        self.column('assignment.id', width=40, stretch=False)
+        self.column('tutor.id', width=40, stretch=False)
+        self.column('subject.id', width=40, stretch=False)
     
     def insert_queryresult(self, assignment, tags=None):
         values=(assignment.id, assignment.name, assignment.uidentifier, assignment.type, assignment.tutor.id, assignment.tutor.name, assignment.tutor.uidentifier, assignment.tutor.subject, assignment.tutor.level)

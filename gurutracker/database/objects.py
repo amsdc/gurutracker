@@ -96,15 +96,16 @@ class Assignment(object):
 
 
 class Tag(object):
-    def __init__(self, id=None, text=None, fgcolor=None, bgcolor=None):
+    def __init__(self, id=None, text=None, fgcolor=None, bgcolor=None, parent=None):
         self.id = id
         self.text = text
         self.fgcolor = fgcolor
         self.bgcolor = bgcolor
+        self.parent = parent
         
     def __repr__(self):
-        return "<Tag {}, text={}, fgcolor={}, bgcolor={}>".format(
-            self.id, self.text, self.fgcolor, self.bgcolor
+        return "<Tag {}, text={}, fgcolor={}, bgcolor={}, parent={}>".format(
+            self.id, self.text, self.fgcolor, self.bgcolor, self.parent
         )
     
     def __eq__(self, __o):
