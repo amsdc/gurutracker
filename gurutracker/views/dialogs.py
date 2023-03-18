@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import re
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
@@ -6,11 +7,15 @@ from tkinter import simpledialog
 from tkinter import colorchooser
 
 from gurutracker.globals import settings, controller
-from gurutracker.database.objects import Assignment, Tutor, Tag
-from gurutracker.views.listbox import TutorListFrame, TagListFrame
+from gurutracker.database.objects import Assignment, Tutor, Tag, Subject
+from gurutracker.views.listbox import TutorListFrame, TagListFrame, SubjectListFrame
 from gurutracker.views.helpers import center_window, center_window_wrt
 from gurutracker.views.widgets import DropdownCombobox
 from gurutracker.helpers.object_typecaster import tagname_list, taglist_to_objects
+
+
+NAME_VALIDATION_REGEX=r"[a-zA-Z0-9 ]+"
+UID_VALIDATION_REGEX=r"[A-Z0-9]+"
 
 # Assignment Dialogs
 
@@ -133,7 +138,8 @@ class NewAssignment(AssignmentDialogBase):
                 if callable(self.callback):
                     self.callback()
                 self.destroy()
-                
+
+
 class EditAssignment(AssignmentDialogBase):
     def populate(self):
         self.title("Edit Assignment")
@@ -171,11 +177,11 @@ class EditAssignment(AssignmentDialogBase):
 # Tutor Dialogs
 
 class TutorDialogBase(tk.Toplevel, ABC):
-    def __init__(self, parent, assignment=None, callback=None, *a, **kw):
+    def __init__(self, parent, tutor=None, callback=None, *a, **kw):
         tk.Toplevel.__init__(self, parent, *a, **kw)
         
         
-        self.assignment = assignment
+        self.tutor = tutor
         self.callback = callback
         
         self.transient(parent)
@@ -201,18 +207,14 @@ class TutorDialogBase(tk.Toplevel, ABC):
         
         self.tutor_subj_label = tk.Label(self, text="Subject")
         self.tutor_subj_label.grid(row=3, column=0, sticky=tk.E, padx=2, pady=2)
-        self.tutor_subj_entry = tk.StringVar()
-        self.tutor_subj__entry = ttk.Entry(self, textvariable=self.tutor_subj_entry)
-        self.tutor_subj__entry.grid(row=3, column=1, sticky=tk.EW, padx=2, pady=2)
+        # self.tutor_subj_entry = tk.StringVar()
+        self.tutor_subj = SubjectListFrame(self, showcols=settings.getlist("gui.preferences", "dialogs.TutorDialogBase.SubjectListFrame.displaycolumns"))
+        self.tutor_subj.grid(row=3, column=1, sticky=tk.EW, padx=2, pady=2)
+        self.tutor_subj.extend(controller.list_all_subjects())
         
-        self.tutor_level_label = tk.Label(self, text="Level")
-        self.tutor_level_label.grid(row=4, column=0, sticky=tk.E, padx=2, pady=2)
-        self.tutor_level_entry = tk.StringVar()
-        self.tutor_level__entry = ttk.Entry(self, textvariable=self.tutor_level_entry)
-        self.tutor_level__entry.grid(row=4, column=1, sticky=tk.EW, padx=2, pady=2)
         
         self.submit = ttk.Button(self, text="Submit")
-        self.submit.grid(row=5, column=0, columnspan=2, sticky=tk.EW, padx=2, pady=2)
+        self.submit.grid(row=4, column=0, columnspan=2, sticky=tk.EW, padx=2, pady=2)
         
         tk.Grid.rowconfigure(self, 4, weight=1)
         tk.Grid.columnconfigure(self, 1, weight=1)
@@ -229,8 +231,7 @@ class TutorDialogBase(tk.Toplevel, ABC):
         id_str = self.tutor_id_entry.get()
         name = self.tutor_name_entry.get()
         uidentifier = self.tutor_uid_entry.get()
-        subject = self.tutor_subj_entry.get()
-        level = self.tutor_level_entry.get()
+        subject = self.tutor_subj.treeview.selection()
         if id_str:
             id = int(id_str)
         else:
@@ -238,26 +239,60 @@ class TutorDialogBase(tk.Toplevel, ABC):
         
         if not name:
             errors += "* Please enter the tutor name.\n"
+        elif not re.fullmatch(NAME_VALIDATION_REGEX, name):
+            errors += f"* The name must only contain alphabets, numbers and the space character. \n"
             
 
         if not uidentifier:
             errors += "* Please enter the UID of the tutor.\n"
+        elif not re.fullmatch(UID_VALIDATION_REGEX, uidentifier):
+            errors += f"* The UID must be in all caps and can only contain letters A-Z, numbers 0-9.\n"
         else:
             query = controller.get_tutor_by_uid(uidentifier)
             if query and (not id or query.id != id):
                 errors += "* The chosen UID is already in use. Please choose another.\n"
                 
-        if not subject:
-            errors += "* Please enter the tutor's subject.\n"
-            
-        if not level:
-            errors += "* Please enter the tutor level.\n"
+        if subject and len(subject) != 1:
+            errors += "* Please select only one subject.\n"
+        elif not subject:
+            errors += "* Please select a subject.\n"
         
         if errors:
             messagebox.showerror("Error", errors)
             
         return not errors
-    
+
+
+class EditTutor(TutorDialogBase):
+    def populate(self):
+        self.title("Edit Tutor")
+        
+        self.tutor_id_entry.set(self.tutor.id)
+        self.tutor_name_entry.set(self.tutor.name)
+        self.tutor_uid_entry.set(self.tutor.uidentifier)
+        self.tutor_subj.treeview.selection_set("{}".format(self.tutor.subject.id))
+        
+        self.submit["text"] = "Edit"
+        self.submit["command"] = self.edit
+        
+    def edit(self):
+        if self.validate():
+            sub = Subject(id=int(self.tutor_subj.treeview.selection()[0]))
+            tuto = Tutor(id=int(self.tutor_id_entry.get()),
+                         name=self.tutor_name_entry.get(),
+                         uidentifier=self.tutor_uid_entry.get(),
+                         subject=sub)
+            try:
+                controller.edit_tutor(tuto)
+            except Exception as e:
+                messagebox.showerror("Database Error {}".format(str(type(e))), str(e))
+            else:
+                messagebox.showinfo("Success", "Tutor information updated.")
+                if callable(self.callback):
+                    self.callback()
+                self.destroy()
+
+
 class NewTutor(TutorDialogBase):
     def populate(self):
         self.title("New Tutor")
@@ -266,11 +301,10 @@ class NewTutor(TutorDialogBase):
         
     def add(self):
         if self.validate():
+            sub = Subject(id=int(self.tutor_subj.treeview.selection()[0]))
             tuto = Tutor(name=self.tutor_name_entry.get(),
-                              uidentifier=self.tutor_uid_entry.get(),
-                              subject=self.tutor_subj_entry.get(),
-                              level=self.tutor_level_entry.get())
-                              
+                         uidentifier=self.tutor_uid_entry.get(),
+                         subject=sub)
             try:
                 controller.add_tutor(tuto)
             except Exception as e:
@@ -309,8 +343,8 @@ class TagDialogBase(tk.Toplevel):
     def refresh(self):
         self.assn_tag_tv.clear()
         self.assn_tag_tv.extend(controller.assignment_tags(self.assignment))
-        
-        
+
+
 class ViewTags(TagDialogBase):
     def populate(self):
         self.assn_tag_label["text"] = "Tags for {}".format(self.assignment.name)

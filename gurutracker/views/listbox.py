@@ -34,7 +34,7 @@ class AssignmentListView(ttk.Treeview):
         self.column('subject.id', width=40, stretch=False)
     
     def insert_queryresult(self, assignment, tags=None):
-        values=(assignment.id, assignment.name, assignment.uidentifier, assignment.type, assignment.tutor.id, assignment.tutor.name, assignment.tutor.uidentifier, assignment.tutor.subject, assignment.tutor.level)
+        values=(assignment.id, assignment.name, assignment.uidentifier, assignment.type, assignment.tutor.id, assignment.tutor.name, assignment.tutor.uidentifier, assignment.tutor.subject.id, assignment.tutor.subject.name, assignment.tutor.subject.desc, assignment.tutor.subject.uidentifier, "/".join((assignment.tutor.subject.uidentifier, assignment.tutor.uidentifier, assignment.uidentifier)))
         if tags:
             self.insert('', tk.END, values=values, tags=tags)
         else:
@@ -52,7 +52,7 @@ class TutorListView(ttk.Treeview):
     def __init__(self, parent, *a, showcols=None, **kw):
         super().__init__(parent, *a, **kw)
         
-        cols = ["tutor.id", "tutor.name", "tutor.uidentifier", "tutor.subject", "tutor.level"]
+        cols = ["tutor.id", "tutor.name", "tutor.uidentifier", "subject.id", "subject.name", "subject.desc", "subject.uidentifier", ".tutor.uidentifier"]
         self["columns"] = cols
         self['show'] = 'headings'
         self["selectmode"] = tk.BROWSE
@@ -60,22 +60,62 @@ class TutorListView(ttk.Treeview):
         if showcols:
             self["displaycolumns"] = showcols
         else:
-            self["displaycolumns"] = ("tutor.name", "tutor.uidentifier", "tutor.subject", "tutor.level")
+            self["displaycolumns"] = ("tutor.name", ".tutor.uidentifier", "subject.name", "subject.desc")
         
         self.heading('tutor.id', text='T#')
         self.heading('tutor.name', text='Tutor')
         self.heading('tutor.uidentifier', text='Tutor UID')
-        self.heading('tutor.subject', text='Subject')
-        self.heading('tutor.level', text='Level')
+        self.heading('subject.id', text='S#')
+        self.heading('subject.name', text='Subject')
+        self.heading('subject.desc', text='Subject Description')
+        self.heading('subject.uidentifier', text='Subject UID')
+        self.heading('.tutor.uidentifier', text='UID') # Subject UID/Tutor UID
         
-        self.column('tutor.id', width=40)
+        self.column('tutor.id', width=40, stretch=False)
+        self.column('subject.id', width=40, stretch=False)
     
     def insert_queryresult(self, tutor, tags=()):
-        self.insert('', tk.END, iid="{}".format(tutor.id), values=(tutor.id, tutor.name, tutor.uidentifier, tutor.subject, tutor.level), tags=tags)
+        self.insert('', tk.END, iid="{}".format(tutor.id), values=(tutor.id, tutor.name, tutor.uidentifier, tutor.subject.id, tutor.subject.name, tutor.subject.desc, tutor.subject.uidentifier, "/".join((tutor.subject.uidentifier, tutor.uidentifier))), tags=tags)
     
     def insert_queryresults(self, result):
         for teac in result:
             self.insert_queryresult(teac)
+
+
+class SubjectListView(ttk.Treeview):
+    def __init__(self, parent, *a, showcols=None, **kw):
+        super().__init__(parent, *a, **kw)
+        
+        cols = ["subject.id", "subject.name", "subject.desc", "subject.uidentifier"]
+        self["columns"] = cols
+        self['show'] = 'headings'
+        self["selectmode"] = tk.BROWSE
+        
+        if showcols:
+            self["displaycolumns"] = showcols
+        else:
+            self["displaycolumns"] = ("subject.name", "subject.desc", "subject.uidentifier")
+        
+        self.heading('subject.id', text='S#')
+        self.heading('subject.name', text='Subject')
+        self.heading('subject.desc', text='Subject Description')
+        self.heading('subject.uidentifier', text='Subject UID')
+
+        self.column('subject.id', width=40, stretch=False)
+    
+    def insert_queryresult(self, subject, tags=None):
+        values=(subject.id, subject.name, subject.desc, subject.uidentifier)
+        if tags:
+            self.insert('', tk.END, iid="{}".format(subject.id), values=values, tags=tags)
+        else:
+            self.insert('', tk.END, iid="{}".format(subject.id), values=values)
+    
+    def insert_queryresults(self, result, tag_func=None):
+        for assn in result:
+            if callable(tag_func):
+                self.insert_queryresult(assn, tag_func(assn))
+            else:
+                self.insert_queryresult(assn)
 
 
 class TagListView(ttk.Treeview):
@@ -146,4 +186,8 @@ class TutorListFrame(TreeviewFrame):
 class TagListFrame(TreeviewFrame):
     def __init__(self, parent, *a, **kw):
         super().__init__(parent, TagListView, *a, **kw)
-        
+
+
+class SubjectListFrame(TreeviewFrame):
+    def __init__(self, parent, *a, **kw):
+        super().__init__(parent, SubjectListView, *a, **kw)

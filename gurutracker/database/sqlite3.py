@@ -374,7 +374,7 @@ class Controller(Base):
             teac = None
         cur.close()
         return teac
-        raise NotImplementedError
+        # raise NotImplementedError
 
     def add_tutor(self, tutor):
         cur = self.con.cursor()

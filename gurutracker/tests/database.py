@@ -103,6 +103,19 @@ class TestMySQLController(unittest.TestCase):
         sub2 = gurutracker.globals.controller.list_all_subjects()[0]
         self.assertTrue(sub == sub2)
         
+    def test_get_subject_by_uid(self):
+        sub = gurutracker.database.objects.Subject(name="Physics",
+                                                   desc="Physics is the study of nature",
+                                                   uidentifier="PHY")
+        gurutracker.globals.controller.add_subject(sub)
+        self.assertTrue(sub.id is not None)
+        sub2 = gurutracker.globals.controller.get_subject_by_uid("PHY")
+        sub3 = gurutracker.globals.controller.get_subject_by_uid("PHYSICS")
+        self.assertEqual(sub, sub2)
+        self.assertTrue(sub2)
+        self.assertIsNone(sub3)
+        self.assertFalse(sub3)
+        
     def test_edit_subject(self):
         sub = gurutracker.database.objects.Subject(name="Physics",
                                                    desc="Physics is the study of nature",
@@ -134,6 +147,23 @@ class TestMySQLController(unittest.TestCase):
         gurutracker.globals.controller.add_tutor(tutor)
         
         self.assertIsNotNone(tutor.id)
+    
+    def test_get_tutor_by_uid(self):
+        sub = gurutracker.database.objects.Subject(name="Physics",
+                                                   desc="Physics is the study of nature",
+                                                   uidentifier="PHY")
+        gurutracker.globals.controller.add_subject(sub)
+        
+        tutor = gurutracker.database.objects.Tutor(name="Richard Feymann",
+                                                   uidentifier="FEYNMANN",
+                                                   subject=sub)
+        gurutracker.globals.controller.add_tutor(tutor)
+        tuty = gurutracker.globals.controller.get_tutor_by_uid('FEYNMANN')
+        tutn = gurutracker.globals.controller.get_tutor_by_uid('FEYMANN')
+        self.assertEqual(tutor, tuty)
+        self.assertTrue(tuty)
+        self.assertIsNone(tutn)
+        self.assertFalse(tutn)
         
     def test_add_unique_tutor(self):
         sub = gurutracker.database.objects.Subject(name="Physics",
@@ -328,6 +358,26 @@ class TestMySQLController(unittest.TestCase):
         gurutracker.globals.controller.edit_assignment(ass)
         la = gurutracker.globals.controller.list_all_assignments()[0]
         self.assertEqual(la.tutor, tutr)
+        
+    def test_get_assignment_uid(self):
+        sub = gurutracker.database.objects.Subject(name="Physics",
+                                                   desc="Physics is the study of nature",
+                                                   uidentifier="PHY")
+        gurutracker.globals.controller.add_subject(sub)
+        
+        tutor = gurutracker.database.objects.Tutor(name="Richard Feymann",
+                                                   uidentifier="FEYNMANN",
+                                                   subject=sub)
+        gurutracker.globals.controller.add_tutor(tutor)
+        
+        ass = gurutracker.database.objects.Assignment(name="The Suction Tap",
+                                                      uidentifier="FLUIDS/SUCTIONTAP",
+                                                      type="worksheet",
+                                                      tutor=tutor)
+        gurutracker.globals.controller.add_assignment(ass)
+        
+        a2 = gurutracker.globals.controller.get_assignment_by_uid("FLUIDS/SUCTIONTAP")
+        self.assertEqual(a2, ass)
     
     def test_del_assignment(self):
         sub = gurutracker.database.objects.Subject(name="Physics",

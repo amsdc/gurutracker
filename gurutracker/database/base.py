@@ -14,6 +14,10 @@ class Base(ABC):
         pass
     
     @abstractmethod
+    def get_subject_by_uid(self):
+        pass
+    
+    @abstractmethod
     def add_subject(self, subject):
         pass
     

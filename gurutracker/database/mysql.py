@@ -23,6 +23,19 @@ class Controller(Base):
         cur.close()
         return res
     
+    def get_subject_by_uid(self, uid):
+        cur = self.con.cursor()
+        cur.execute("SELECT `id`, `name`, `desc`, `uidentifier` FROM `subject` WHERE `uidentifier`=%s LIMIT 1;", (uid, ))
+        res = None
+        item = cur.fetchone()
+        if item:
+            res = Subject(id=item[0],
+                          name=item[1],
+                          desc=item[2],
+                          uidentifier=item[3])
+        cur.close()
+        return res
+    
     def add_subject(self, subject):
         cur = self.con.cursor()
         cur.execute("INSERT INTO `subject` (`name`, `desc`, `uidentifier`) VALUES (%s, %s, %s);", (subject.name, subject.desc, subject.uidentifier))
@@ -110,14 +123,17 @@ class Controller(Base):
     
     def get_assignment_by_uid(self, uid):
         cur = self.con.cursor()
-        cur.execute("SELECT `assignment`.`id`, `assignment`.`name`, `assignment`.`uidentifier`, `assignment`.`type`, `assignment`.`tid`, `tutor`.`name`, `tutor`.`uidentifier`, `tutor`.`subject`, `tutor`.`level` FROM `assignment`, `tutor` WHERE `assignment`.`tid` = `tutor`.`id` AND `assignment`.`uidentifier` = %s LIMIT 1;", (uid,))
+        cur.execute("SELECT `assignment`.`id`, `assignment`.`name`, `assignment`.`uidentifier`, `assignment`.`type`, `assignment`.`tid`, `tutor`.`name`, `tutor`.`uidentifier`, `tutor`.`subid`, `subject`.`name`, `subject`.`desc`, `subject`.`uidentifier` FROM `assignment` JOIN `tutor` ON `assignment`.`tid` = `tutor`.`id` JOIN `subject` ON `tutor`.`subid` = `subject`.`id` WHERE `assignment`.`uidentifier`=%s LIMIT 1;", (uid,))
         item = cur.fetchone()
         if item:
+            sub = Subject(id=item[7],
+                          name=item[8],
+                          desc=item[9],
+                          uidentifier=item[10])
             teac = Tutor(id=item[4],
                          name=item[5],
                          uidentifier=item[6],
-                         subject=item[7],
-                         level=item[8])
+                         subject=sub)
             ass = Assignment(id=item[0],
                              name=item[1],
                              uidentifier=item[2],
@@ -205,7 +221,23 @@ class Controller(Base):
         return res
         
     def get_tutor_by_uid(self, uid):
-        raise NotImplementedError
+        # SELECT `tutor`.`id`, `tutor`.`name`, `tutor`.`uidentifier`, `subject`.`id`, `subject`.`name`, `subject`.`desc`, `subject`.`uidentifier` FROM `tutor` JOIN `subject` ON `tutor`.`subid` = `subject`.`id` WHERE `uidentifier`=?;
+        cur = self.con.cursor()
+        cur.execute("SELECT `tutor`.`id`, `tutor`.`name`, `tutor`.`uidentifier`, `subject`.`id`, `subject`.`name`, `subject`.`desc`, `subject`.`uidentifier` FROM `tutor` JOIN `subject` ON `tutor`.`subid` = `subject`.`id` WHERE `tutor`.`uidentifier`=%s;", (uid,))
+        item = cur.fetchone()
+        if item:
+            sub = Subject(id=item[3],
+                          name=item[4],
+                          desc=item[5],
+                          uidentifier=item[6])
+            teac = Tutor(id=item[0],
+                         name=item[1],
+                         uidentifier=item[2],
+                         subject=sub)
+        else:
+            teac = None
+        cur.close()
+        return teac
 
     def add_tutor(self, tutor):
         cur = self.con.cursor()
