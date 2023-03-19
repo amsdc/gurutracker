@@ -26,8 +26,8 @@ class MainWindow(tk.Tk):
                                          onvalue=True,
                                          offvalue=False)
         self.window_menu.add_separator()
-        self.window_menu.add_command(label="Export All Data", command=self.export_all_data)
-        self.window_menu.add_command(label="Import Data into Database", command=self.import_all_data)
+        self.window_menu.add_command(label="Export All Data", command=self.export_all_data, state=tk.DISABLED)
+        self.window_menu.add_command(label="Import Data into Database", command=self.import_all_data, state=tk.DISABLED)
         self.window_menu.add_separator()
         self.window_menu.add_command(label="Exit", command=self.destroy)
         self.menubar.add_cascade(label="Application", menu=self.window_menu)
