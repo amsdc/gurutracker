@@ -6,16 +6,13 @@ DEFAULT_SETTINGS = {
     },
     "storage": {
         "type": "filesystem.directory",
-        "directory": "~/.gurutracker/data/"
+        "directory": "~/.gurutracker/data/",
+        "tempinfo": "~/.gurutracker/tempinfo"
     },
     "notes": {
         "enabled": "true",
         "autosave": "false",
         "textfile": "~/.gurutracker/notesfile.txt"
-    },
-    "files": {
-        "datadir": "DATA",
-        "extension": "pdf"
     },
     "gui.preferences": {
         "mainwindow.onStartup.launchFullScreen": "false",

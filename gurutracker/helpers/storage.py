@@ -9,6 +9,8 @@ import tempfile
 import atexit
 import webbrowser
 
+from gurutracker.globals import settings
+
 opened_files = []
 
 def _save_file(fp):
@@ -46,5 +48,21 @@ def send_file(fp, to):
 
 @atexit.register
 def delete_all():
-    for file in opened_files:
-        os.unlink(file)
+    l = []
+    if os.path.isfile(os.path.expanduser(settings.get("storage", "tempinfo"))):
+        fp = open(os.path.expanduser(settings.get("storage", "tempinfo")), "r")
+        l = fp.read().strip().split()
+    tp = tempfile.TemporaryFile("w+")
+    for file in (opened_files + l):
+        try:
+            os.unlink(file)
+        except:
+            tp.write(file+"\n")
+    if os.path.isfile(os.path.expanduser(settings.get("storage", "tempinfo"))):
+        fp.close()
+    
+    tp.seek(0)
+    fp = open(os.path.expanduser(settings.get("storage", "tempinfo")), "w")
+    fp.write(tp.read())
+    tp.close()
+    fp.close()
