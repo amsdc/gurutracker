@@ -117,6 +117,17 @@ class TestMySQLController(unittest.TestCase):
         self.assertTrue(sub.id is not None)
         sub2 = gurutracker.globals.controller.list_all_subjects()[0]
         self.assertTrue(sub == sub2)
+    
+    def test_add_subject_id(self):
+        sub = gurutracker.database.objects.Subject(id=7,
+                                                   name="Physics",
+                                                   desc="Physics is the study of nature",
+                                                   uidentifier="PHY")
+        gurutracker.globals.controller.add_subject(sub)
+        self.assertIsNotNone(sub.id)
+        sub2 = gurutracker.globals.controller.list_all_subjects()[0]
+        self.assertEqual(sub, sub2)
+        self.assertEqual(sub2.id, 7)
         
     def test_get_subject_by_uid(self):
         sub = gurutracker.database.objects.Subject(name="Physics",
@@ -162,6 +173,22 @@ class TestMySQLController(unittest.TestCase):
         gurutracker.globals.controller.add_tutor(tutor)
         
         self.assertIsNotNone(tutor.id)
+    
+    def test_add_tutor_with_id(self):
+        sub = gurutracker.database.objects.Subject(name="Physics",
+                                                   desc="Physics is the study of nature",
+                                                   uidentifier="PHY")
+        gurutracker.globals.controller.add_subject(sub)
+        
+        tutor = gurutracker.database.objects.Tutor(id=8,
+                                                   name="Richard Feymann",
+                                                   uidentifier="FEYNMANN",
+                                                   subject=sub)
+        gurutracker.globals.controller.add_tutor(tutor)
+        
+        self.assertIsNotNone(tutor.id)
+        t = gurutracker.globals.controller.list_tutors()[0]
+        self.assertEqual(t.id, 8)
     
     def test_get_tutor_by_uid(self):
         sub = gurutracker.database.objects.Subject(name="Physics",
@@ -291,6 +318,28 @@ class TestMySQLController(unittest.TestCase):
                                                       tutor=tutor)
         gurutracker.globals.controller.add_assignment(ass)
         self.assertIsNotNone(ass.id)
+    
+    def test_add_assignment_id(self):
+        sub = gurutracker.database.objects.Subject(name="Physics",
+                                                   desc="Physics is the study of nature",
+                                                   uidentifier="PHY")
+        gurutracker.globals.controller.add_subject(sub)
+        
+        tutor = gurutracker.database.objects.Tutor(name="Richard Feymann",
+                                                   uidentifier="FEYNMANN",
+                                                   subject=sub)
+        gurutracker.globals.controller.add_tutor(tutor)
+        
+        ass = gurutracker.database.objects.Assignment(id=37,
+                                                      name="The Suction Tap",
+                                                      uidentifier="FLUIDS/SUCTIONTAP",
+                                                      type="worksheet",
+                                                      tutor=tutor)
+        gurutracker.globals.controller.add_assignment(ass)
+        self.assertIsNotNone(ass.id)
+        
+        sd = gurutracker.globals.controller.list_all_assignments()[0]
+        self.assertEqual(sd.id, 37)
     
     def test_add_unique_assignment(self):
         sub = gurutracker.database.objects.Subject(name="Physics",
@@ -428,6 +477,23 @@ class TestMySQLController(unittest.TestCase):
         gurutracker.globals.controller.add_tag(tag2)
         
         self.assertIsNotNone(tag2.id)
+    
+    def test_add_tag_id(self):
+        tag = gurutracker.database.objects.Tag(id=25,
+                                               text="Physics")
+        gurutracker.globals.controller.add_tag(tag)
+        
+        self.assertIsNotNone(tag.id)
+        
+        tag2 = gurutracker.database.objects.Tag(id=29,
+                                                text="Fluids",
+                                                fgcolor="FF0000",
+                                                parent=tag)
+        gurutracker.globals.controller.add_tag(tag2)
+        
+        tt = gurutracker.globals.controller.list_tags()
+        self.assertEqual(tt[0].id, 25)
+        self.assertEqual(tt[1].id, 29)
     
     def test_list_tags(self):
         tag = gurutracker.database.objects.Tag(text="Physics")

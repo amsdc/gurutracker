@@ -1,5 +1,6 @@
 import os
 import re
+import platform
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
@@ -24,7 +25,7 @@ from gurutracker.helpers.object_typecaster import list_to_objects, tv_tag_config
 from gurutracker.database import objects
 
 
-NAME_VALIDATION_REGEX=r"[a-zA-Z0-9 ]+"
+NAME_VALIDATION_REGEX=r"[a-zA-Z0-9\(\) ]+"
 UID_VALIDATION_REGEX=r"[A-Z0-9]+"
 
 
@@ -78,6 +79,9 @@ class AssignmentBrowserFrame(tk.Frame):
         self.toolbar_files_menu.add_command(label="Link File", command=self.associate_file_rec)
         self.toolbar_files_menu.add_command(label="View File", command=self.open_current_record)
         self.toolbar_files_menu.add_command(label="Unlink File", command=self.disassociate_file_rec)
+        if platform.system() == "Windows" and settings.getboolean("gui.preferences", "mainwindow.ToolBar.FilesToolbarMenubutton.showSendToOption"):
+            self.toolbar_files_menu.add_separator()
+            self.toolbar_files_menu.add_command(label="Send To", command=self.file_send_to)
         self.toolbar_files.pack()
         
 
@@ -155,6 +159,17 @@ class AssignmentBrowserFrame(tk.Frame):
                 f = storage.get_file(self.selected_record)
                 open_file(f)
                 f.close()
+            else:
+                messagebox.showerror("Error", "This record does not have any file assocated with it.")
+        else:
+            messagebox.showinfo("Info", "Please select a record.")
+    
+    def file_send_to(self):
+        if self.selected_record:
+            if storage.has_linked_file(self.selected_record):
+                f = storage.get_file(self.selected_record)
+                dialogs.SendToMenu(self, f)
+                # f.close()
             else:
                 messagebox.showerror("Error", "This record does not have any file assocated with it.")
         else:

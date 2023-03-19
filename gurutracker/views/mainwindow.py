@@ -8,6 +8,8 @@ from PIL import ImageTk, Image
 
 from gurutracker.globals import settings, controller, module_path
 import gurutracker.helpers.exporter
+from gurutracker.helpers import appdata
+from gurutracker.helpers.appdata.interface import AppdataProgressWindow as ImportToplevel
 from gurutracker.views import frames
 
 
@@ -32,7 +34,7 @@ class MainWindow(tk.Tk):
                                          offvalue=False)
         self.window_menu.add_separator()
         self.window_menu.add_command(label="Export All Data", command=self.export_all_data, state=tk.DISABLED)
-        self.window_menu.add_command(label="Import Data into Database", command=self.import_all_data, state=tk.DISABLED)
+        self.window_menu.add_command(label="Import Data into Database", command=self.import_all_data)
         self.window_menu.add_separator()
         self.window_menu.add_command(label="Exit", command=self.destroy)
         self.menubar.add_cascade(label="Application", menu=self.window_menu)
@@ -116,23 +118,30 @@ class MainWindow(tk.Tk):
             messagebox.showinfo("Finished", "Export finished.")
     
     def import_all_data(self):
-        cur = controller.con.cursor()
-        cur.execute("SELECT COUNT(*) FROM tutor;")
+        # cur = controller.con.cursor()
+        # cur.execute("SELECT COUNT(*) FROM tutor;")
         
-        if cur.fetchone()[0] == 0:
-            fname = filedialog.askopenfilename(filetypes=[
-                ('Gurutracker eXport Package', '*.gxp')])
-            if fname:
-                try:
-                    gurutracker.helpers.exporter.import_(fname)
-                except gurutracker.helpers.exporter.VersionMismatchError:
-                    messagebox.showerror("Error", "This file is of an unsupported GXP version.")
-                except:
-                    messagebox.showerror("Error", "This file is corrupted.")
-                else:
-                    messagebox.showinfo("Finished", "Import finished. Restart app to see effect.")
-        else:
-            messagebox.showerror("Error", "Import only possible in fresh install")
+        # if cur.fetchone()[0] == 0:
+        #     fname = filedialog.askopenfilename(filetypes=[
+        #         ('Gurutracker eXport Package', '*.gxp')])
+        #     if fname:
+        #         try:
+        #             gurutracker.helpers.exporter.import_(fname)
+        #         except gurutracker.helpers.exporter.VersionMismatchError:
+        #             messagebox.showerror("Error", "This file is of an unsupported GXP version.")
+        #         except:
+        #             messagebox.showerror("Error", "This file is corrupted.")
+        #         else:
+        #             messagebox.showinfo("Finished", "Import finished. Restart app to see effect.")
+        # else:
+        #     messagebox.showerror("Error", "Import only possible in fresh install")
             
-        cur.close()
+        # cur.close()
+        fname = filedialog.askopenfilename(filetypes=[
+                ('Gurutracker eXport Package', '*.gxp')])
+        if fname:
+            if appdata.should_use_converter(fname):
+                messagebox.showwarning("Old Version", "The application will now attempt import data from this file, from an old version of Gurutracker. Imports may not be complete, due to feature changes.")
+                func = appdata.get_converter_name(fname)
+                ImportToplevel(self, "load_from_old", func, fname)
 

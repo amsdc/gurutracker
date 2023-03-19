@@ -47,7 +47,7 @@ class TestFilesystemDirectoryStorage(unittest.TestCase):
         f2 = open(os.path.join(self.dir.name, "file_0001"), "rb")
         self.assertEqual(f2.read(), bb.read())
         f2.close()
-        f3 = open(os.path.join(self.dir.name, "mime_0001"), "r")
+        f3 = open(os.path.join(self.dir.name, "extn_0001"), "r")
         self.assertEqual(f3.read(), "bin")
         f3.close()
         bb.close()
@@ -73,7 +73,7 @@ class TestFilesystemDirectoryStorage(unittest.TestCase):
         bb.seek(0)
         self.fdsa.link_file(bb, ass)
         
-        f3 = open(os.path.join(self.dir.name, "mime_0001"), "r")
+        f3 = open(os.path.join(self.dir.name, "extn_0001"), "r")
         self.assertEqual(f3.read(), "sha222")
         f3.close()
         # bb.close()
@@ -85,7 +85,7 @@ class TestFilesystemDirectoryStorage(unittest.TestCase):
         bb.seek(0)
         self.fdsa.link_file(bb, ass)
         
-        f3 = open(os.path.join(self.dir.name, "mime_0003"), "r")
+        f3 = open(os.path.join(self.dir.name, "extn_0003"), "r")
         self.assertEqual(f3.read(), "pdm")
         f3.close()
         bb.close()

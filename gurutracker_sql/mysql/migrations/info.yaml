@@ -1,3 +1,4 @@
+database: mysql
 revisionstart: 1
-revisionend: 3 # exclusive
-filefmt: migration_{:04d}.py
+revisionend: 4 # inclusive
+filefmt: migration_{:04d}.sql

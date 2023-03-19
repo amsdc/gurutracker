@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import os
 import re
 import tkinter as tk
 from tkinter import ttk
@@ -8,13 +9,14 @@ from tkinter import colorchooser
 
 from gurutracker.globals import settings, controller
 from gurutracker.database.objects import Assignment, Tutor, Tag, Subject
-from gurutracker.views.listbox import TutorListFrame, TagListFrame, SubjectListFrame
+from gurutracker.views.listbox import TutorListFrame, TagListFrame, SubjectListFrame, SendToListFrame
 from gurutracker.views.helpers import center_window, center_window_wrt
 from gurutracker.views.widgets import DropdownCombobox
 from gurutracker.helpers.object_typecaster import tagname_list, taglist_to_objects
+from gurutracker.helpers.storage import send_file
 
 
-NAME_VALIDATION_REGEX=r"[a-zA-Z0-9 ]+"
+NAME_VALIDATION_REGEX=r"[a-zA-Z0-9\(\) ]+"
 UID_VALIDATION_REGEX=r"[A-Z0-9]+"
 
 # Assignment Dialogs
@@ -530,3 +532,41 @@ class EditTags(tk.Toplevel):
         self.refresh()
         if callable(self.callback):
             self.callback()
+
+
+class SendToMenu(tk.Toplevel):
+    def __init__(self, parent, fp=None, callback=None, *a, **kw):
+        tk.Toplevel.__init__(self, parent, *a, **kw)
+        
+        self.fp = fp
+        self.callback = callback
+        
+        self.transient(parent)
+        
+        self.title("Send To")
+        
+        self.assn_tag_tv = SendToListFrame(self)
+        self.assn_tag_tv.grid(row=0, column=0, columnspan=2, sticky=tk.NSEW, padx=2, pady=2)
+        
+        self.populate()
+        tk.Grid.rowconfigure(self, 0, weight=1)
+        tk.Grid.columnconfigure(self, 0, weight=1)
+        center_window_wrt(self, parent)
+        
+        self.protocol("WM_DELETE_WINDOW", self.on_closing)
+        self.assn_tag_tv.treeview.bind("<<TreeviewSelect>>", self.sendto)
+        
+    def populate(self):
+        for d in os.listdir(os.path.expanduser("~/AppData/Roaming/Microsoft/Windows/SendTo")):
+            if d == "desktop.ini": continue
+            self.assn_tag_tv.append((".".join(d.split(".")[:-1]), d))
+        
+    def sendto(self, event=None):
+        if self.assn_tag_tv.treeview.selection():
+            send_file(self.fp, self.assn_tag_tv.treeview.item(self.assn_tag_tv.treeview.selection()[0])['values'][1])
+            self.fp.close()
+            self.destroy()
+    
+    def on_closing(self, event=None):
+        self.fp.close()
+        self.destroy()

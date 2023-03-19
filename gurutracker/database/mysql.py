@@ -38,10 +38,14 @@ class Controller(Base):
     
     def add_subject(self, subject):
         cur = self.con.cursor()
-        cur.execute("INSERT INTO `subject` (`name`, `desc`, `uidentifier`) VALUES (%s, %s, %s);", (subject.name, subject.desc, subject.uidentifier))
-        self.con.commit()
-        cur.execute("SELECT `id` FROM `subject` WHERE `uidentifier`=%s LIMIT 1;", (subject.uidentifier,))
-        subject.id = cur.fetchone()[0]
+        if subject.id: # has id, so use it
+            cur.execute("INSERT INTO `subject` (`id`, `name`, `desc`, `uidentifier`) VALUES (%s, %s, %s, %s);", (subject.id, subject.name, subject.desc, subject.uidentifier))
+            self.con.commit()
+        else: # put the id in obj
+            cur.execute("INSERT INTO `subject` (`name`, `desc`, `uidentifier`) VALUES (%s, %s, %s);", (subject.name, subject.desc, subject.uidentifier))
+            self.con.commit()
+            cur.execute("SELECT `id` FROM `subject` WHERE `uidentifier`=%s LIMIT 1;", (subject.uidentifier,))
+            subject.id = cur.fetchone()[0]
         cur.close()
     
     def edit_subject(self, subject):
@@ -185,10 +189,14 @@ class Controller(Base):
         
     def add_assignment(self, assignment):
         cur = self.con.cursor()
-        cur.execute("INSERT INTO `assignment` (`name`, `uidentifier`, `type`, `tid`) VALUES (%s, %s, %s, %s);", (assignment.name, assignment.uidentifier, assignment.type, assignment.tutor.id))
-        self.con.commit()
-        cur.execute("SELECT `id` FROM `assignment` WHERE `uidentifier`=%s LIMIT 1;", (assignment.uidentifier,))
-        assignment.id = cur.fetchone()[0]
+        if assignment.id: # use id given
+            cur.execute("INSERT INTO `assignment` (`id`, `name`, `uidentifier`, `type`, `tid`) VALUES (%s, %s, %s, %s, %s);", (assignment.id, assignment.name, assignment.uidentifier, assignment.type, assignment.tutor.id))
+            self.con.commit()
+        else:
+            cur.execute("INSERT INTO `assignment` (`name`, `uidentifier`, `type`, `tid`) VALUES (%s, %s, %s, %s);", (assignment.name, assignment.uidentifier, assignment.type, assignment.tutor.id))
+            self.con.commit()
+            cur.execute("SELECT `id` FROM `assignment` WHERE `uidentifier`=%s LIMIT 1;", (assignment.uidentifier,))
+            assignment.id = cur.fetchone()[0]
         cur.close()
     
     def edit_assignment(self, assignment):
@@ -241,10 +249,14 @@ class Controller(Base):
 
     def add_tutor(self, tutor):
         cur = self.con.cursor()
-        cur.execute("INSERT INTO `tutor` (`name`, `uidentifier`, `subid`) VALUES (%s, %s, %s)", (tutor.name, tutor.uidentifier, tutor.subject.id))
-        self.con.commit()
-        cur.execute("SELECT `id` FROM `tutor` WHERE `uidentifier`=%s LIMIT 1;", (tutor.uidentifier,))
-        tutor.id = cur.fetchone()[0]
+        if tutor.id:
+            cur.execute("INSERT INTO `tutor` (`id`, `name`, `uidentifier`, `subid`) VALUES (%s, %s, %s, %s)", (tutor.id, tutor.name, tutor.uidentifier, tutor.subject.id))
+            self.con.commit()
+        else:
+            cur.execute("INSERT INTO `tutor` (`name`, `uidentifier`, `subid`) VALUES (%s, %s, %s)", (tutor.name, tutor.uidentifier, tutor.subject.id))
+            self.con.commit()
+            cur.execute("SELECT `id` FROM `tutor` WHERE `uidentifier`=%s LIMIT 1;", (tutor.uidentifier,))
+            tutor.id = cur.fetchone()[0]
         cur.close()
 
     def edit_tutor(self, tutor):
@@ -333,10 +345,14 @@ class Controller(Base):
 
     def add_tag(self, tag):
         cur = self.con.cursor()
-        cur.execute("INSERT INTO `tag` (`text`, `fgcolor`, `bgcolor`, `parent_tag_id`) VALUES (%s, %s, %s, %s);", (tag.text, tag.fgcolor, tag.bgcolor, tag.parent.id if tag.parent else None))
-        self.con.commit()
-        cur.execute("SELECT `id` FROM `tag` WHERE `text`=%s LIMIT 1;", (tag.text,))
-        tag.id = cur.fetchone()[0]
+        if tag.id:
+            cur.execute("INSERT INTO `tag` (`id`, `text`, `fgcolor`, `bgcolor`, `parent_tag_id`) VALUES (%s, %s, %s, %s, %s);", (tag.id, tag.text, tag.fgcolor, tag.bgcolor, tag.parent.id if tag.parent else None))
+            self.con.commit()
+        else:
+            cur.execute("INSERT INTO `tag` (`text`, `fgcolor`, `bgcolor`, `parent_tag_id`) VALUES (%s, %s, %s, %s);", (tag.text, tag.fgcolor, tag.bgcolor, tag.parent.id if tag.parent else None))
+            self.con.commit()
+            cur.execute("SELECT `id` FROM `tag` WHERE `text`=%s LIMIT 1;", (tag.text,))
+            tag.id = cur.fetchone()[0]
         cur.close()
 
     def edit_tag(self, tag):

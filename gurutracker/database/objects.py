@@ -58,7 +58,7 @@ class Tutor(object):
 
 
 class Assignment(object):
-    def __init__(self, id=None, name=None, uidentifier=None, type=None, tutor=None, completed=None):
+    def __init__(self, id=None, name=None, uidentifier=None, type=None, tutor=None):
         """__init__
 
         Refers to an Assignment.

@@ -118,6 +118,37 @@ class SubjectListView(ttk.Treeview):
                 self.insert_queryresult(assn)
 
 
+class SendToListView(ttk.Treeview):
+    def __init__(self, parent, *a, showcols=None, **kw):
+        super().__init__(parent, *a, **kw)
+        
+        cols = ["app_name", "app_exc"]
+        self["columns"] = cols
+        self['show'] = ''
+        self["selectmode"] = tk.BROWSE
+        
+        if showcols:
+            self["displaycolumns"] = showcols
+        else:
+            self["displaycolumns"] = ["app_name"]
+        
+        self.heading('app_name', text='App Name')
+        self.heading('app_exc', text='Exc')
+    
+    def insert_queryresult(self, values, tags=None):
+        if tags:
+            self.insert('', tk.END, values=values, tags=tags)
+        else:
+            self.insert('', tk.END, values=values)
+    
+    def insert_queryresults(self, result, tag_func=None):
+        for assn in result:
+            if callable(tag_func):
+                self.insert_queryresult(assn, tag_func(assn))
+            else:
+                self.insert_queryresult(assn)
+
+
 class TagListView(ttk.Treeview):
     def __init__(self, parent, *a, showcols=None, **kw):
         super().__init__(parent, *a, **kw)
@@ -191,3 +222,7 @@ class TagListFrame(TreeviewFrame):
 class SubjectListFrame(TreeviewFrame):
     def __init__(self, parent, *a, **kw):
         super().__init__(parent, SubjectListView, *a, **kw)
+
+class SendToListFrame(TreeviewFrame):
+    def __init__(self, parent, *a, **kw):
+        super().__init__(parent, SendToListView, *a, **kw)

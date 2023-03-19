@@ -19,6 +19,7 @@ DEFAULT_SETTINGS = {
     },
     "gui.preferences": {
         "mainwindow.onStartup.launchFullScreen": "false",
+        "mainwindow.ToolBar.FilesToolbarMenubutton.showSendToOption": "off",
         "mainwindow.AssignmentBrowserFrame.DoubleButton1.defaultaction": "view_current_record",
         "mainwindow.AssignmentBrowserFrame.ReturnKey.defaultaction": "open_current_record",
         "mainwindow.AssignmentBrowserFrame.ViewTagsDialog.onupdate": "refresh_treeview",

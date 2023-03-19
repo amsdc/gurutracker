@@ -40,8 +40,13 @@ class ExceptionDialog(tk.Toplevel):
         self.destroy()
         sys.exit(1)
 
+
+def errstr(*args):
+    return "".join(tuple(traceback.format_exception(*args)))
+
+
 def show_error(self, *args):
-    err = "".join(tuple(traceback.format_exception(*args)))
+    err = errstr(*args)
     ExceptionDialog(self, err)
 
 if __name__ == "__main__":
