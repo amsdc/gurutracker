@@ -16,6 +16,7 @@ class Config():
         self.config.read_dict(DEFAULT_SETTINGS)
         
         self.get = self.config.get
+        self.set = self.config.set
         self.getint = self.config.getint
         self.getfloat = self.config.getfloat
         self.getboolean = self.config.getboolean

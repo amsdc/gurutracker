@@ -12,17 +12,16 @@ from tkinter import messagebox
 from PIL import Image
 
 import gurutracker.views.helpers
+from gurutracker.globals import settings, controller
 
 class ImagesToPDF(tk.Toplevel):
-    def __init__(self, parent, config, controller, sel_record=None, callback=None, *a, **kw):
+    def __init__(self, parent, sel_record=None, callback=None, *a, **kw):
         tk.Toplevel.__init__(self, parent, *a, **kw)
         
         self.title("Images to PDF")
         
         self.transient(parent)
         
-        self.config = config
-        self.controller = controller
         self.callback = callback
         self.selected_record = sel_record
         

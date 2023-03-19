@@ -41,8 +41,8 @@ from gurutracker.database.base import Base
 from gurutracker.database.objects import Tutor, Assignment, Tag
 
 class Controller(Base):
-    def __init__(self, filename):
-        self.con = sqlite3.connect(filename)
+    def __init__(self, connection):
+        self.con = connection
         self._createall()
 
     def _createall(self):
@@ -79,7 +79,19 @@ class Controller(Base):
     CONSTRAINT FK_AssignmentTag_Tag FOREIGN KEY (`tag_id`)
     REFERENCES `tag`(`id`)
 );""")
-        
+    
+    def add_subject(self):
+        pass
+    
+    def edit_subject(self):
+        pass
+    
+    def delete_subject(self):
+        pass
+    
+    def list_all_subjects(self):
+        pass
+    
     def list_all_assignments(self):
         """List all assignments with their corresponding tutors.
 
@@ -362,7 +374,7 @@ class Controller(Base):
             teac = None
         cur.close()
         return teac
-        raise NotImplementedError
+        # raise NotImplementedError
 
     def add_tutor(self, tutor):
         cur = self.con.cursor()

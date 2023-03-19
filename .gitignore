@@ -161,6 +161,7 @@ cython_debug/
 
 # Gurutracker files
 configuration.ini
+testing.ini
 converter.py
 database.db
 dump.sql
