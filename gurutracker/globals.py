@@ -37,3 +37,6 @@ if settings.get("storage", "type") == "filesystem.directory":
     del dire
 else:
     raise TypeError("no such storage type, please see docs")
+
+# icon dir
+module_path = os.path.dirname(__file__)

@@ -1,9 +1,12 @@
+import os
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 from tkinter import filedialog
 
-from gurutracker.globals import settings, controller
+from PIL import ImageTk, Image
+
+from gurutracker.globals import settings, controller, module_path
 import gurutracker.helpers.exporter
 from gurutracker.views import frames
 
@@ -16,6 +19,8 @@ class MainWindow(tk.Tk):
         
         # Tkinter starts...
         self.title("Gurutracker")
+        self.__icon = ImageTk.PhotoImage(Image.open(os.path.join(module_path, "resources", "icons", "app128.png")))
+        self.iconphoto(True, self.__icon)
         
         self.menubar = tk.Menu(self, tearoff=0)
         self.window_menu = tk.Menu(self.menubar, tearoff=0)
