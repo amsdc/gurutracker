@@ -8,6 +8,21 @@ import gurutracker.database.mysql
 
 
 class TestObjects(unittest.TestCase):
+    def test_assignment_list_typecast(self):
+        ass = ["1", "Assn", "ASS", "summary", "1", "wdwd", "WDWD", "1", "effefe", "effef S", "QAAA"]
+        assobj = gurutracker.database.objects.Assignment.from_list(ass)
+        self.assertEqual(assobj.id, int(ass[0]))
+        self.assertEqual(assobj.name, ass[1])
+        self.assertEqual(assobj.uidentifier, ass[2])
+        self.assertEqual(assobj.type, ass[3])
+        self.assertEqual(assobj.tutor.id, int(ass[4]))
+        self.assertEqual(assobj.tutor.name, ass[5])
+        self.assertEqual(assobj.tutor.uidentifier, ass[6])
+        self.assertEqual(assobj.tutor.subject.id, int(ass[7]))
+        self.assertEqual(assobj.tutor.subject.name, ass[8])
+        self.assertEqual(assobj.tutor.subject.desc, ass[9])
+        self.assertEqual(assobj.tutor.subject.uidentifier, ass[10])
+
     def test_equalness_subject(self):
         sub1 = gurutracker.database.objects.Subject(id=1, uidentifier="DDD")
         sub2 = gurutracker.database.objects.Subject(id=2)
@@ -514,10 +529,12 @@ class TestMySQLController(unittest.TestCase):
     
     def tearDown(self):
         cur = gurutracker.globals.controller.con.cursor()
-        cur.execute("DELETE FROM `subject`;")
-        cur.execute("DELETE FROM `tutor`;")
-        cur.execute("DELETE FROM `assignment`;")
+        cur.execute("DELETE FROM `assignment_tag`;")
         cur.execute("DELETE FROM `tag`;")
+        cur.execute("DELETE FROM `assignment`;")
+        cur.execute("DELETE FROM `tutor`;")
+        cur.execute("DELETE FROM `subject`;")
+        
         gurutracker.globals.controller.con.commit()
         cur.close()
     

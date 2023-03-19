@@ -94,6 +94,24 @@ class Assignment(object):
         else:
             raise TypeError("cannot check equality")
 
+    @classmethod
+    def from_list(cls, lst):
+        return cls(id=int(lst[0]),
+                   name=lst[1],
+                   uidentifier=lst[2],
+                   type=lst[3],
+                   tutor=Tutor(
+                       id=int(lst[4]),
+                       name=lst[5],
+                       uidentifier=lst[6],
+                       subject=Subject(
+                           id=int(lst[7]),
+                           name=lst[8],
+                           desc=lst[9],
+                           uidentifier=lst[10]
+                       )
+                   ))
+
 
 class Tag(object):
     def __init__(self, id=None, text=None, fgcolor=None, bgcolor=None, parent=None):

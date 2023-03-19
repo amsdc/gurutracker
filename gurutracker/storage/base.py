@@ -4,35 +4,27 @@ class StorageError(Exception):
     pass
 
 
-class CannotLinkFileError(StorageError):
+class FileLinkageError(StorageError):
     """When a storage adapter cannot link/associate a file, this error to be
     raised.
     """
-    def __init__(self, assignment, fp):
+    def __init__(self, assignment, fp, e):
         self.assignment = assignment
         self.fp = fp
-        super().__init__("Failed to link file {} to {}".format(
-            assignment, fp))
+        self.exception = e
+        super().__init__("Failed to link file {} to {}. Original exception: {}".format(
+            assignment, fp, e))
 
 
-class CannotUninkFileError(StorageError):
+class NoLinkedFileError(StorageError):
     """When a storage adapter cannot link/associate a file, this error to be
     raised.
     """
     def __init__(self, assignment):
         self.assignment = assignment
-        super().__init__("Failed to unlink files of {}".format(
+        super().__init__("Failed to get files of {} - no file was associated".format(
             assignment))
 
-
-class CannotGetFileError(StorageError):
-    """When a storage adapter cannot link/associate a file, this error to be
-    raised.
-    """
-    def __init__(self, assignment):
-        self.assignment = assignment
-        super().__init__("Failed to get files of {}".format(
-            assignment))
 
 class Base(ABC):
     """This class is to be used as a base for all storage backends.
@@ -73,6 +65,9 @@ class Base(ABC):
         Args:
             assignment (gurutracker.database.objects.Assignment):
                 The assignment whose files are to be got.
+                
+        Returns:
+            File object with an attribute .ext - extension of file
 
         Raises:
             gurutracker.storage.base.CannotGetFileError:

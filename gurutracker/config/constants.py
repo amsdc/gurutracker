@@ -1,17 +1,17 @@
 SETTINGS_FILE_NAME = "configuration.ini"
 DEFAULT_SETTINGS = {
     "database": {
-        "type": "mysql",
-        "host": "localhost",
-        "user": "root",
-        "password": "groot12345",
-        "database": "gurutracker",
-        "port": 3306
+        "type": "sqlite3",
+        "file": "~/.gurutracker/database.db"
+    },
+    "storage": {
+        "type": "filesystem.directory",
+        "directory": "~/.gurutracker/data/"
     },
     "notes": {
         "enabled": "true",
         "autosave": "false",
-        "textfile": "notes.txt"
+        "textfile": "~/.gurutracker/notesfile.txt"
     },
     "files": {
         "datadir": "DATA",
