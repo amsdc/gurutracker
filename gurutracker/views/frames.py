@@ -184,13 +184,14 @@ class AssignmentBrowserFrame(tk.Frame):
             fname = filedialog.askopenfilename(filetypes=[
                 ('All Files', '*.*')])
             
-            f = open(fname, "rb")
-            try:
-                storage.link_file(f, self.selected_record)
-            except FileLinkageError as e:
-                messagebox.showerror("Failed to link file", "The system failed to link the file.")
-            else:
-                messagebox.showinfo("Success", "Linked file. Refresh for changes to reflect.")
+            if fname:
+                f = open(fname, "rb")
+                try:
+                    storage.link_file(f, self.selected_record)
+                except FileLinkageError as e:
+                    messagebox.showerror("Failed to link file", "The system failed to link the file.")
+                else:
+                    messagebox.showinfo("Success", "Linked file. Refresh for changes to reflect.")
         else:
             messagebox.showinfo("Info", "Please select a record.")
     
