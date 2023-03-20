@@ -1,7 +1,9 @@
 import json
+import os
 import zipfile
 
 from gurutracker import __gxp_version__
+from gurutracker.globals import settings, controller
 
 
 def versionstr_to_tuple(vesrionstr):
@@ -61,3 +63,20 @@ def get_converter_name(ifile):
     v = versionstr_to_tuple(ver1["gxp_version"])
     if v[0] == 1:
         return "load_from_v1"
+
+
+def check_loadable():
+    """check_if_importable 
+    
+    Check if the database and notes are empty so that data can be 
+    imported.
+    
+    Returns:
+        bool: True if data is importable
+    """
+    return (
+        len(controller.list_all_subjects()) == 0
+        and len(controller.list_tutors()) == 0
+        and len(controller.list_all_assignments()) == 0
+        and not os.path.isfile(os.path.expanduser("notes", "textfile"))
+    )

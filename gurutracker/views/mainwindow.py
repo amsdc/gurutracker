@@ -33,7 +33,7 @@ class MainWindow(tk.Tk):
                                          onvalue=True,
                                          offvalue=False)
         self.window_menu.add_separator()
-        self.window_menu.add_command(label="Export All Data", command=self.export_all_data, state=tk.DISABLED)
+        self.window_menu.add_command(label="Export All Data", command=self.export_all_data)
         self.window_menu.add_command(label="Import Data into Database", command=self.import_all_data)
         self.window_menu.add_separator()
         self.window_menu.add_command(label="Exit", command=self.destroy)
@@ -114,8 +114,7 @@ class MainWindow(tk.Tk):
             ('Gurutracker eXport Package', '*.gxp')],
             defaultextension='.gxp')
         if fname:
-            gurutracker.helpers.exporter.export(fname)
-            messagebox.showinfo("Finished", "Export finished.")
+            ImportToplevel(self, "current", "dump_v2_0", fname)
     
     def import_all_data(self):
         # cur = controller.con.cursor()
@@ -137,11 +136,14 @@ class MainWindow(tk.Tk):
         #     messagebox.showerror("Error", "Import only possible in fresh install")
             
         # cur.close()
-        fname = filedialog.askopenfilename(filetypes=[
-                ('Gurutracker eXport Package', '*.gxp')])
-        if fname:
-            if appdata.should_use_converter(fname):
-                messagebox.showwarning("Old Version", "The application will now attempt import data from this file, from an old version of Gurutracker. Imports may not be complete, due to feature changes.")
-                func = appdata.get_converter_name(fname)
-                ImportToplevel(self, "load_from_old", func, fname)
+        if appdata.check_loadable():
+            fname = filedialog.askopenfilename(filetypes=[
+                    ('Gurutracker eXport Package', '*.gxp')])
+            if fname:
+                if appdata.should_use_converter(fname):
+                    messagebox.showwarning("Old Version", "The application will now attempt import data from this file, from an old version of Gurutracker. Imports may not be complete, due to feature changes.")
+                    func = appdata.get_converter_name(fname)
+                    ImportToplevel(self, "load_from_old", func, fname)
+        else:
+            messagebox.showerror("Error", "Import of data can only be done when the install is fresh i.e. no data in the database and no files. \n\nTo make your install 'fresh', drop and create the database again, delete the data directory, notes file and the configuration files.")
 

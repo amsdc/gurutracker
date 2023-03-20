@@ -3,7 +3,7 @@ import shutil
 from tkinter import messagebox
 from tkinter import filedialog
 
-import gurutracker.helpers.fileopener
+# import gurutracker.helpers.fileopener
 
 def center_window(win):
     """
@@ -39,14 +39,14 @@ def center_window_wrt(win, wrt):
     win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
     win.deiconify()
     
-def associate_file_with_record(config, selected_record, fname):
-    if gurutracker.helpers.fileopener.valid_filepath(config, selected_record.uidentifier):
-        if not messagebox.askyesno("Warning", "A file is already present. This will OVERWRITE the file. Proceed?"):
-            return
+# def associate_file_with_record(config, selected_record, fname):
+#     if gurutracker.helpers.fileopener.valid_filepath(config, selected_record.uidentifier):
+#         if not messagebox.askyesno("Warning", "A file is already present. This will OVERWRITE the file. Proceed?"):
+#             return
 
-    if fname:
-        path = gurutracker.helpers.fileopener.filepath(config, selected_record.uidentifier)
-        os.makedirs(os.path.split(path)[0], exist_ok=True)
-        shutil.copy(fname, path)
-        messagebox.showinfo("Success", "Success. Please refresh to open file")
-        return True
+#     if fname:
+#         path = gurutracker.helpers.fileopener.filepath(config, selected_record.uidentifier)
+#         os.makedirs(os.path.split(path)[0], exist_ok=True)
+#         shutil.copy(fname, path)
+#         messagebox.showinfo("Success", "Success. Please refresh to open file")
+#         return True
