@@ -3,6 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+.. image:: _static/images/app128.png
+   :height: 128
+   :width: 128
+   :align: center
+   :alt: alternate text
+
 Welcome to Gurutracker's documentation!
 =======================================
 

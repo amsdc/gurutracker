@@ -1,4 +1,4 @@
-gurutracker
+Modules
 ===========
 
 .. toctree::
