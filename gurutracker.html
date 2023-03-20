@@ -1,0 +1,390 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>gurutracker package &#8212; Gurutracker 0.3.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="gurutracker.config package" href="gurutracker.config.html" />
+    <link rel="prev" title="Modules" href="modules.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="gurutracker-package">
+<h1>gurutracker package<a class="headerlink" href="#gurutracker-package" title="Permalink to this heading">¶</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="gurutracker.config.html">gurutracker.config package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gurutracker.config.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gurutracker.config.html#module-gurutracker.config.base">gurutracker.config.base module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.config.html#gurutracker.config.base.Base"><code class="docutils literal notranslate"><span class="pre">Base</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gurutracker.config.html#module-gurutracker.config.constants">gurutracker.config.constants module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gurutracker.config.html#module-gurutracker.config.discoverer">gurutracker.config.discoverer module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.config.html#gurutracker.config.discoverer.get_config_loc"><code class="docutils literal notranslate"><span class="pre">get_config_loc()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gurutracker.config.html#module-gurutracker.config.py_configparser">gurutracker.config.py_configparser module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.config.html#gurutracker.config.py_configparser.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.config.html#gurutracker.config.py_configparser.Config.config"><code class="docutils literal notranslate"><span class="pre">Config.config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.config.html#gurutracker.config.py_configparser.Config.getlist"><code class="docutils literal notranslate"><span class="pre">Config.getlist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.config.html#gurutracker.config.py_configparser.Config.read_config"><code class="docutils literal notranslate"><span class="pre">Config.read_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.config.html#gurutracker.config.py_configparser.Config.write"><code class="docutils literal notranslate"><span class="pre">Config.write()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gurutracker.config.html#module-gurutracker.config">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gurutracker.database.html">gurutracker.database package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gurutracker.database.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gurutracker.database.html#module-gurutracker.database.base">gurutracker.database.base module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base"><code class="docutils literal notranslate"><span class="pre">Base</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.add_assignment"><code class="docutils literal notranslate"><span class="pre">Base.add_assignment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.add_subject"><code class="docutils literal notranslate"><span class="pre">Base.add_subject()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.add_tag"><code class="docutils literal notranslate"><span class="pre">Base.add_tag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.add_tutor"><code class="docutils literal notranslate"><span class="pre">Base.add_tutor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.assignment_tags"><code class="docutils literal notranslate"><span class="pre">Base.assignment_tags()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.del_assignment"><code class="docutils literal notranslate"><span class="pre">Base.del_assignment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.delete_subject"><code class="docutils literal notranslate"><span class="pre">Base.delete_subject()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.delete_tag"><code class="docutils literal notranslate"><span class="pre">Base.delete_tag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.delete_tutor"><code class="docutils literal notranslate"><span class="pre">Base.delete_tutor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.edit_assignment"><code class="docutils literal notranslate"><span class="pre">Base.edit_assignment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.edit_subject"><code class="docutils literal notranslate"><span class="pre">Base.edit_subject()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.edit_tag"><code class="docutils literal notranslate"><span class="pre">Base.edit_tag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.edit_tutor"><code class="docutils literal notranslate"><span class="pre">Base.edit_tutor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.get_assignment_by_id"><code class="docutils literal notranslate"><span class="pre">Base.get_assignment_by_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.get_assignment_by_uid"><code class="docutils literal notranslate"><span class="pre">Base.get_assignment_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.get_subject_by_uid"><code class="docutils literal notranslate"><span class="pre">Base.get_subject_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.get_tag"><code class="docutils literal notranslate"><span class="pre">Base.get_tag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.get_tutor_by_uid"><code class="docutils literal notranslate"><span class="pre">Base.get_tutor_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.list_all_assignments"><code class="docutils literal notranslate"><span class="pre">Base.list_all_assignments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.list_all_subjects"><code class="docutils literal notranslate"><span class="pre">Base.list_all_subjects()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.list_tags"><code class="docutils literal notranslate"><span class="pre">Base.list_tags()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.list_tutors"><code class="docutils literal notranslate"><span class="pre">Base.list_tutors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.search_assignment_by_name_instr"><code class="docutils literal notranslate"><span class="pre">Base.search_assignment_by_name_instr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.search_assignment_by_tags"><code class="docutils literal notranslate"><span class="pre">Base.search_assignment_by_tags()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.search_tag_by_text_instr"><code class="docutils literal notranslate"><span class="pre">Base.search_tag_by_text_instr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.search_uid_by_name_instr"><code class="docutils literal notranslate"><span class="pre">Base.search_uid_by_name_instr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.sql_query"><code class="docutils literal notranslate"><span class="pre">Base.sql_query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.tag_assignment"><code class="docutils literal notranslate"><span class="pre">Base.tag_assignment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.tagged_assignments"><code class="docutils literal notranslate"><span class="pre">Base.tagged_assignments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.base.Base.untag_assignment"><code class="docutils literal notranslate"><span class="pre">Base.untag_assignment()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gurutracker.database.html#module-gurutracker.database.mysql">gurutracker.database.mysql module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller"><code class="docutils literal notranslate"><span class="pre">Controller</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.add_assignment"><code class="docutils literal notranslate"><span class="pre">Controller.add_assignment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.add_subject"><code class="docutils literal notranslate"><span class="pre">Controller.add_subject()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.add_tag"><code class="docutils literal notranslate"><span class="pre">Controller.add_tag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.add_tutor"><code class="docutils literal notranslate"><span class="pre">Controller.add_tutor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.assignment_tags"><code class="docutils literal notranslate"><span class="pre">Controller.assignment_tags()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.del_assignment"><code class="docutils literal notranslate"><span class="pre">Controller.del_assignment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.delete_subject"><code class="docutils literal notranslate"><span class="pre">Controller.delete_subject()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.delete_tag"><code class="docutils literal notranslate"><span class="pre">Controller.delete_tag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.delete_tutor"><code class="docutils literal notranslate"><span class="pre">Controller.delete_tutor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.edit_assignment"><code class="docutils literal notranslate"><span class="pre">Controller.edit_assignment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.edit_subject"><code class="docutils literal notranslate"><span class="pre">Controller.edit_subject()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.edit_tag"><code class="docutils literal notranslate"><span class="pre">Controller.edit_tag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.edit_tutor"><code class="docutils literal notranslate"><span class="pre">Controller.edit_tutor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.get_assignment_by_id"><code class="docutils literal notranslate"><span class="pre">Controller.get_assignment_by_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.get_assignment_by_uid"><code class="docutils literal notranslate"><span class="pre">Controller.get_assignment_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.get_subject_by_uid"><code class="docutils literal notranslate"><span class="pre">Controller.get_subject_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.get_tag"><code class="docutils literal notranslate"><span class="pre">Controller.get_tag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.get_tag_by_id"><code class="docutils literal notranslate"><span class="pre">Controller.get_tag_by_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.get_tutor_by_uid"><code class="docutils literal notranslate"><span class="pre">Controller.get_tutor_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.list_all_assignments"><code class="docutils literal notranslate"><span class="pre">Controller.list_all_assignments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.list_all_assignments_customsql"><code class="docutils literal notranslate"><span class="pre">Controller.list_all_assignments_customsql()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.list_all_subjects"><code class="docutils literal notranslate"><span class="pre">Controller.list_all_subjects()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.list_tags"><code class="docutils literal notranslate"><span class="pre">Controller.list_tags()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.list_tutors"><code class="docutils literal notranslate"><span class="pre">Controller.list_tutors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.search_assignment_by_name_instr"><code class="docutils literal notranslate"><span class="pre">Controller.search_assignment_by_name_instr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.search_assignment_by_tags"><code class="docutils literal notranslate"><span class="pre">Controller.search_assignment_by_tags()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.search_tag_by_text_instr"><code class="docutils literal notranslate"><span class="pre">Controller.search_tag_by_text_instr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.search_uid_by_name_instr"><code class="docutils literal notranslate"><span class="pre">Controller.search_uid_by_name_instr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.sql_query"><code class="docutils literal notranslate"><span class="pre">Controller.sql_query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.tag_assignment"><code class="docutils literal notranslate"><span class="pre">Controller.tag_assignment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.tagged_assignments"><code class="docutils literal notranslate"><span class="pre">Controller.tagged_assignments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.mysql.Controller.untag_assignment"><code class="docutils literal notranslate"><span class="pre">Controller.untag_assignment()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gurutracker.database.html#module-gurutracker.database.objects">gurutracker.database.objects module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.objects.Assignment"><code class="docutils literal notranslate"><span class="pre">Assignment</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.objects.Assignment.from_list"><code class="docutils literal notranslate"><span class="pre">Assignment.from_list()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.objects.Subject"><code class="docutils literal notranslate"><span class="pre">Subject</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.objects.Tag"><code class="docutils literal notranslate"><span class="pre">Tag</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.objects.Tutor"><code class="docutils literal notranslate"><span class="pre">Tutor</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gurutracker.database.html#module-gurutracker.database.sqlite3">gurutracker.database.sqlite3 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.DATABASE_NAME"><code class="docutils literal notranslate"><span class="pre">DATABASE_NAME</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller"><code class="docutils literal notranslate"><span class="pre">Controller</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.add_assignment"><code class="docutils literal notranslate"><span class="pre">Controller.add_assignment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.add_subject"><code class="docutils literal notranslate"><span class="pre">Controller.add_subject()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.add_tag"><code class="docutils literal notranslate"><span class="pre">Controller.add_tag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.add_tutor"><code class="docutils literal notranslate"><span class="pre">Controller.add_tutor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.assignment_tags"><code class="docutils literal notranslate"><span class="pre">Controller.assignment_tags()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.del_assignment"><code class="docutils literal notranslate"><span class="pre">Controller.del_assignment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.delete_subject"><code class="docutils literal notranslate"><span class="pre">Controller.delete_subject()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.delete_tag"><code class="docutils literal notranslate"><span class="pre">Controller.delete_tag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.delete_tutor"><code class="docutils literal notranslate"><span class="pre">Controller.delete_tutor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.edit_assignment"><code class="docutils literal notranslate"><span class="pre">Controller.edit_assignment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.edit_subject"><code class="docutils literal notranslate"><span class="pre">Controller.edit_subject()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.edit_tag"><code class="docutils literal notranslate"><span class="pre">Controller.edit_tag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.edit_tutor"><code class="docutils literal notranslate"><span class="pre">Controller.edit_tutor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.get_assignment_by_id"><code class="docutils literal notranslate"><span class="pre">Controller.get_assignment_by_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.get_assignment_by_uid"><code class="docutils literal notranslate"><span class="pre">Controller.get_assignment_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.get_tag"><code class="docutils literal notranslate"><span class="pre">Controller.get_tag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.get_tutor_by_uid"><code class="docutils literal notranslate"><span class="pre">Controller.get_tutor_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.list_all_assignments"><code class="docutils literal notranslate"><span class="pre">Controller.list_all_assignments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.list_all_assignments_customsql"><code class="docutils literal notranslate"><span class="pre">Controller.list_all_assignments_customsql()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.list_all_subjects"><code class="docutils literal notranslate"><span class="pre">Controller.list_all_subjects()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.list_tags"><code class="docutils literal notranslate"><span class="pre">Controller.list_tags()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.list_tutors"><code class="docutils literal notranslate"><span class="pre">Controller.list_tutors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.search_assignment_by_name_instr"><code class="docutils literal notranslate"><span class="pre">Controller.search_assignment_by_name_instr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.search_assignment_by_tags"><code class="docutils literal notranslate"><span class="pre">Controller.search_assignment_by_tags()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.search_tag_by_text_instr"><code class="docutils literal notranslate"><span class="pre">Controller.search_tag_by_text_instr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.search_uid_by_name_instr"><code class="docutils literal notranslate"><span class="pre">Controller.search_uid_by_name_instr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.sql_query"><code class="docutils literal notranslate"><span class="pre">Controller.sql_query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.tag_assignment"><code class="docutils literal notranslate"><span class="pre">Controller.tag_assignment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.tagged_assignments"><code class="docutils literal notranslate"><span class="pre">Controller.tagged_assignments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.database.html#gurutracker.database.sqlite3.Controller.untag_assignment"><code class="docutils literal notranslate"><span class="pre">Controller.untag_assignment()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gurutracker.database.html#module-gurutracker.database">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gurutracker.storage.html">gurutracker.storage package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gurutracker.storage.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gurutracker.storage.html#module-gurutracker.storage.base">gurutracker.storage.base module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.storage.html#gurutracker.storage.base.Base"><code class="docutils literal notranslate"><span class="pre">Base</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.storage.html#gurutracker.storage.base.Base.get_all"><code class="docutils literal notranslate"><span class="pre">Base.get_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.storage.html#gurutracker.storage.base.Base.get_file"><code class="docutils literal notranslate"><span class="pre">Base.get_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.storage.html#gurutracker.storage.base.Base.has_linked_file"><code class="docutils literal notranslate"><span class="pre">Base.has_linked_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.storage.html#gurutracker.storage.base.Base.link_file"><code class="docutils literal notranslate"><span class="pre">Base.link_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.storage.html#gurutracker.storage.base.Base.unlink_file"><code class="docutils literal notranslate"><span class="pre">Base.unlink_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.storage.html#gurutracker.storage.base.FileLinkageError"><code class="docutils literal notranslate"><span class="pre">FileLinkageError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.storage.html#gurutracker.storage.base.NoLinkedFileError"><code class="docutils literal notranslate"><span class="pre">NoLinkedFileError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.storage.html#gurutracker.storage.base.StorageError"><code class="docutils literal notranslate"><span class="pre">StorageError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gurutracker.storage.html#module-gurutracker.storage.filesystem">gurutracker.storage.filesystem module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.storage.html#gurutracker.storage.filesystem.FilesystemDirectory"><code class="docutils literal notranslate"><span class="pre">FilesystemDirectory</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.storage.html#gurutracker.storage.filesystem.FilesystemDirectory.get_all"><code class="docutils literal notranslate"><span class="pre">FilesystemDirectory.get_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.storage.html#gurutracker.storage.filesystem.FilesystemDirectory.get_file"><code class="docutils literal notranslate"><span class="pre">FilesystemDirectory.get_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.storage.html#gurutracker.storage.filesystem.FilesystemDirectory.has_linked_file"><code class="docutils literal notranslate"><span class="pre">FilesystemDirectory.has_linked_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.storage.html#gurutracker.storage.filesystem.FilesystemDirectory.link_file"><code class="docutils literal notranslate"><span class="pre">FilesystemDirectory.link_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.storage.html#gurutracker.storage.filesystem.FilesystemDirectory.unlink_file"><code class="docutils literal notranslate"><span class="pre">FilesystemDirectory.unlink_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gurutracker.storage.html#module-gurutracker.storage.myphp">gurutracker.storage.myphp module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gurutracker.storage.html#module-gurutracker.storage">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gurutracker.tests.html">gurutracker.tests package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gurutracker.tests.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gurutracker.tests.html#module-gurutracker.tests.database">gurutracker.tests.database module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController"><code class="docutils literal notranslate"><span class="pre">TestMySQLController</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.setUp"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.setUp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.tearDown"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.tearDown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_add_assignment"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_add_assignment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_add_assignment_id"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_add_assignment_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_add_subject"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_add_subject()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_add_subject_id"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_add_subject_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_add_tag"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_add_tag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_add_tag_id"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_add_tag_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_add_tutor"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_add_tutor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_add_tutor_with_id"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_add_tutor_with_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_add_unique_assignment"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_add_unique_assignment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_add_unique_tutor"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_add_unique_tutor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_del_assignment"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_del_assignment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_del_subject"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_del_subject()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_del_tags"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_del_tags()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_del_tags_nested"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_del_tags_nested()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_del_tutor"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_del_tutor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_edit_assignment"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_edit_assignment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_edit_subject"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_edit_subject()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_edit_tags"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_edit_tags()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_edit_tutor"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_edit_tutor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_edit_unique_tutor"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_edit_unique_tutor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_get_assignment_uid"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_get_assignment_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_get_subject_by_uid"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_get_subject_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_get_tutor_by_uid"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_get_tutor_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_list_assignment"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_list_assignment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_list_tags"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_list_tags()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_list_tags_nopop"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_list_tags_nopop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestMySQLController.test_list_tutor"><code class="docutils literal notranslate"><span class="pre">TestMySQLController.test_list_tutor()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestObjects"><code class="docutils literal notranslate"><span class="pre">TestObjects</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestObjects.test_assignment_list_typecast"><code class="docutils literal notranslate"><span class="pre">TestObjects.test_assignment_list_typecast()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestObjects.test_equalness_assignment"><code class="docutils literal notranslate"><span class="pre">TestObjects.test_equalness_assignment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestObjects.test_equalness_subject"><code class="docutils literal notranslate"><span class="pre">TestObjects.test_equalness_subject()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestObjects.test_equalness_tag"><code class="docutils literal notranslate"><span class="pre">TestObjects.test_equalness_tag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestObjects.test_equalness_tutor"><code class="docutils literal notranslate"><span class="pre">TestObjects.test_equalness_tutor()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.TestSqlite3Controller"><code class="docutils literal notranslate"><span class="pre">TestSqlite3Controller</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.database.suite"><code class="docutils literal notranslate"><span class="pre">suite()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gurutracker.tests.html#module-gurutracker.tests.helpers">gurutracker.tests.helpers module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.helpers.TestFileOpenerHelper"><code class="docutils literal notranslate"><span class="pre">TestFileOpenerHelper</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.helpers.TestFileOpenerHelper.setUp"><code class="docutils literal notranslate"><span class="pre">TestFileOpenerHelper.setUp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.helpers.TestFileOpenerHelper.test_file_name"><code class="docutils literal notranslate"><span class="pre">TestFileOpenerHelper.test_file_name()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.helpers.suite"><code class="docutils literal notranslate"><span class="pre">suite()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gurutracker.tests.html#module-gurutracker.tests.storage">gurutracker.tests.storage module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.storage.TestFilesystemDirectoryStorage"><code class="docutils literal notranslate"><span class="pre">TestFilesystemDirectoryStorage</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.storage.TestFilesystemDirectoryStorage.setUp"><code class="docutils literal notranslate"><span class="pre">TestFilesystemDirectoryStorage.setUp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.storage.TestFilesystemDirectoryStorage.tearDown"><code class="docutils literal notranslate"><span class="pre">TestFilesystemDirectoryStorage.tearDown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.storage.TestFilesystemDirectoryStorage.test_add_file"><code class="docutils literal notranslate"><span class="pre">TestFilesystemDirectoryStorage.test_add_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.storage.TestFilesystemDirectoryStorage.test_add_mtype"><code class="docutils literal notranslate"><span class="pre">TestFilesystemDirectoryStorage.test_add_mtype()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.storage.TestFilesystemDirectoryStorage.test_del_file"><code class="docutils literal notranslate"><span class="pre">TestFilesystemDirectoryStorage.test_del_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.storage.TestFilesystemDirectoryStorage.test_get_file"><code class="docutils literal notranslate"><span class="pre">TestFilesystemDirectoryStorage.test_get_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.storage.TestFilesystemDirectoryStorage.test_get_file_type"><code class="docutils literal notranslate"><span class="pre">TestFilesystemDirectoryStorage.test_get_file_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.storage.TestFilesystemDirectoryStorage.test_has_linked_file"><code class="docutils literal notranslate"><span class="pre">TestFilesystemDirectoryStorage.test_has_linked_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gurutracker.tests.html#gurutracker.tests.storage.suite"><code class="docutils literal notranslate"><span class="pre">suite()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gurutracker.tests.html#module-gurutracker.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="module-gurutracker.globals">
+<span id="gurutracker-globals-module"></span><h2>gurutracker.globals module<a class="headerlink" href="#module-gurutracker.globals" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="module-gurutracker">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-gurutracker" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="gurutracker.main">
+<span class="sig-prename descclassname"><span class="pre">gurutracker.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Gurutracker</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">gurutracker package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">Modules</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">Modules</a></li>
+      <li>Next: <a href="gurutracker.config.html" title="next chapter">gurutracker.config package</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Advaith Menon.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/gurutracker.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

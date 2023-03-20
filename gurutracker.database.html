@@ -1,0 +1,811 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>gurutracker.database package &#8212; Gurutracker 0.3.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="gurutracker.storage package" href="gurutracker.storage.html" />
+    <link rel="prev" title="gurutracker.config package" href="gurutracker.config.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="gurutracker-database-package">
+<h1>gurutracker.database package<a class="headerlink" href="#gurutracker-database-package" title="Permalink to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="module-gurutracker.database.base">
+<span id="gurutracker-database-base-module"></span><h2>gurutracker.database.base module<a class="headerlink" href="#module-gurutracker.database.base" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gurutracker.database.base.</span></span><span class="sig-name descname"><span class="pre">Base</span></span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Use this as a base for all database classes. All methods except
+<cite>sql_query</cite> are mandatory to implement. For a full working example,
+see <cite>mysql.py</cite>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.add_assignment">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_assignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assignment</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.add_assignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.add_assignment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.add_subject">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_subject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.add_subject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.add_subject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.add_tag">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.add_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.add_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.add_tutor">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_tutor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tutor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.add_tutor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.add_tutor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.assignment_tags">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">assignment_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assignment</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.assignment_tags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.assignment_tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.del_assignment">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">del_assignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assignment</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.del_assignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.del_assignment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.delete_subject">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_subject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.delete_subject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.delete_subject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.delete_tag">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.delete_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.delete_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.delete_tutor">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_tutor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tutor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.delete_tutor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.delete_tutor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.edit_assignment">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edit_assignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assignment</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.edit_assignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.edit_assignment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.edit_subject">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edit_subject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.edit_subject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.edit_subject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.edit_tag">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edit_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.edit_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.edit_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.edit_tutor">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edit_tutor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tutor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.edit_tutor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.edit_tutor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.get_assignment_by_id">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_assignment_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.get_assignment_by_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.get_assignment_by_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.get_assignment_by_uid">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_assignment_by_uid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.get_assignment_by_uid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.get_assignment_by_uid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.get_subject_by_uid">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_subject_by_uid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.get_subject_by_uid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.get_subject_by_uid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.get_tag">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.get_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.get_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.get_tutor_by_uid">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_tutor_by_uid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.get_tutor_by_uid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.get_tutor_by_uid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.list_all_assignments">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_all_assignments</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.list_all_assignments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.list_all_assignments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.list_all_subjects">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_all_subjects</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.list_all_subjects"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.list_all_subjects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.list_tags">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_tags</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.list_tags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.list_tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.list_tutors">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_tutors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.list_tutors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.list_tutors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.search_assignment_by_name_instr">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search_assignment_by_name_instr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.search_assignment_by_name_instr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.search_assignment_by_name_instr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.search_assignment_by_tags">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search_assignment_by_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tags</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.search_assignment_by_tags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.search_assignment_by_tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.search_tag_by_text_instr">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search_tag_by_text_instr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.search_tag_by_text_instr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.search_tag_by_text_instr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.search_uid_by_name_instr">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search_uid_by_name_instr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.search_uid_by_name_instr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.search_uid_by_name_instr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.sql_query">
+<span class="sig-name descname"><span class="pre">sql_query</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.sql_query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.sql_query" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.tag_assignment">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tag_assignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assignment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.tag_assignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.tag_assignment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.tagged_assignments">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tagged_assignments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assignment</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.tagged_assignments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.tagged_assignments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.base.Base.untag_assignment">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">untag_assignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assignment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/base.html#Base.untag_assignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.base.Base.untag_assignment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-gurutracker.database.mysql">
+<span id="gurutracker-database-mysql-module"></span><h2>gurutracker.database.mysql module<a class="headerlink" href="#module-gurutracker.database.mysql" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gurutracker.database.mysql.</span></span><span class="sig-name descname"><span class="pre">Controller</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connection</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gurutracker.database.base.Base" title="gurutracker.database.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.add_assignment">
+<span class="sig-name descname"><span class="pre">add_assignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assignment</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.add_assignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.add_assignment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.add_subject">
+<span class="sig-name descname"><span class="pre">add_subject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.add_subject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.add_subject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.add_tag">
+<span class="sig-name descname"><span class="pre">add_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.add_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.add_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.add_tutor">
+<span class="sig-name descname"><span class="pre">add_tutor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tutor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.add_tutor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.add_tutor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.assignment_tags">
+<span class="sig-name descname"><span class="pre">assignment_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assignment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">populate_parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.assignment_tags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.assignment_tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.del_assignment">
+<span class="sig-name descname"><span class="pre">del_assignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assignment</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.del_assignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.del_assignment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.delete_subject">
+<span class="sig-name descname"><span class="pre">delete_subject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.delete_subject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.delete_subject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.delete_tag">
+<span class="sig-name descname"><span class="pre">delete_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.delete_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.delete_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.delete_tutor">
+<span class="sig-name descname"><span class="pre">delete_tutor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tutor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.delete_tutor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.delete_tutor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.edit_assignment">
+<span class="sig-name descname"><span class="pre">edit_assignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assignment</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.edit_assignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.edit_assignment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.edit_subject">
+<span class="sig-name descname"><span class="pre">edit_subject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.edit_subject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.edit_subject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.edit_tag">
+<span class="sig-name descname"><span class="pre">edit_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.edit_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.edit_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.edit_tutor">
+<span class="sig-name descname"><span class="pre">edit_tutor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tutor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.edit_tutor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.edit_tutor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.get_assignment_by_id">
+<span class="sig-name descname"><span class="pre">get_assignment_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.get_assignment_by_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.get_assignment_by_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.get_assignment_by_uid">
+<span class="sig-name descname"><span class="pre">get_assignment_by_uid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.get_assignment_by_uid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.get_assignment_by_uid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.get_subject_by_uid">
+<span class="sig-name descname"><span class="pre">get_subject_by_uid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.get_subject_by_uid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.get_subject_by_uid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.get_tag">
+<span class="sig-name descname"><span class="pre">get_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">populate_parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.get_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.get_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.get_tag_by_id">
+<span class="sig-name descname"><span class="pre">get_tag_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">populate_parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.get_tag_by_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.get_tag_by_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.get_tutor_by_uid">
+<span class="sig-name descname"><span class="pre">get_tutor_by_uid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.get_tutor_by_uid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.get_tutor_by_uid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.list_all_assignments">
+<span class="sig-name descname"><span class="pre">list_all_assignments</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.list_all_assignments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.list_all_assignments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.list_all_assignments_customsql">
+<span class="sig-name descname"><span class="pre">list_all_assignments_customsql</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">custom_sql</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.list_all_assignments_customsql"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.list_all_assignments_customsql" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.list_all_subjects">
+<span class="sig-name descname"><span class="pre">list_all_subjects</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.list_all_subjects"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.list_all_subjects" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all subjects.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.list_tags">
+<span class="sig-name descname"><span class="pre">list_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populate_parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.list_tags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.list_tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.list_tutors">
+<span class="sig-name descname"><span class="pre">list_tutors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.list_tutors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.list_tutors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.search_assignment_by_name_instr">
+<span class="sig-name descname"><span class="pre">search_assignment_by_name_instr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.search_assignment_by_name_instr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.search_assignment_by_name_instr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.search_assignment_by_tags">
+<span class="sig-name descname"><span class="pre">search_assignment_by_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tags</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.search_assignment_by_tags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.search_assignment_by_tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.search_tag_by_text_instr">
+<span class="sig-name descname"><span class="pre">search_tag_by_text_instr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">populate_parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.search_tag_by_text_instr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.search_tag_by_text_instr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.search_uid_by_name_instr">
+<span class="sig-name descname"><span class="pre">search_uid_by_name_instr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.search_uid_by_name_instr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.search_uid_by_name_instr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.sql_query">
+<span class="sig-name descname"><span class="pre">sql_query</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.sql_query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.sql_query" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.tag_assignment">
+<span class="sig-name descname"><span class="pre">tag_assignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assignment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.tag_assignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.tag_assignment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.tagged_assignments">
+<span class="sig-name descname"><span class="pre">tagged_assignments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.tagged_assignments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.tagged_assignments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.mysql.Controller.untag_assignment">
+<span class="sig-name descname"><span class="pre">untag_assignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assignment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/mysql.html#Controller.untag_assignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.mysql.Controller.untag_assignment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-gurutracker.database.objects">
+<span id="gurutracker-database-objects-module"></span><h2>gurutracker.database.objects module<a class="headerlink" href="#module-gurutracker.database.objects" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="gurutracker.database.objects.Assignment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gurutracker.database.objects.</span></span><span class="sig-name descname"><span class="pre">Assignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uidentifier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tutor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/objects.html#Assignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.objects.Assignment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.objects.Assignment.from_list">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/objects.html#Assignment.from_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.objects.Assignment.from_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gurutracker.database.objects.Subject">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gurutracker.database.objects.</span></span><span class="sig-name descname"><span class="pre">Subject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uidentifier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/objects.html#Subject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.objects.Subject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gurutracker.database.objects.Tag">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gurutracker.database.objects.</span></span><span class="sig-name descname"><span class="pre">Tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fgcolor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bgcolor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/objects.html#Tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.objects.Tag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gurutracker.database.objects.Tutor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gurutracker.database.objects.</span></span><span class="sig-name descname"><span class="pre">Tutor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uidentifier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/objects.html#Tutor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.objects.Tutor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+</section>
+<section id="module-gurutracker.database.sqlite3">
+<span id="gurutracker-database-sqlite3-module"></span><h2>gurutracker.database.sqlite3 module<a class="headerlink" href="#module-gurutracker.database.sqlite3" title="Permalink to this heading">¶</a></h2>
+<p>A module that provides a controller class for interacting with SQLite3 databases.</p>
+<p>This module defines a Controller class that inherits from Base class defined in
+gurutracker.database.base. The Controller class has methods for creating,
+updating, deleting and querying assignments and tutors from SQLite3 databases.
+It also has methods for validating user inputs and generating reports.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.DATABASE_NAME">
+<span class="sig-prename descclassname"><span class="pre">gurutracker.database.sqlite3.</span></span><span class="sig-name descname"><span class="pre">DATABASE_NAME</span></span><a class="headerlink" href="#gurutracker.database.sqlite3.DATABASE_NAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the database file to use.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<p>To use the Controller class, first import it from this module:</p>
+<blockquote>
+<div><p>from gurutracker.database.sqlite3 import Controller</p>
+</div></blockquote>
+<p>Then create an instance of the Controller class with the database name:</p>
+<blockquote>
+<div><p>controller = Controller(DATABASE_NAME)</p>
+</div></blockquote>
+<p>You can then call any of the methods defined in the Controller class on
+the controller object, such as:</p>
+<blockquote>
+<div><p>controller.list_all_assignments()
+controller.add_assignment(name=”Math Homework”, uidentifier=”MATH-001”, type=”Homework”, tid=1)
+controller.delete_assignment_by_id(2)
+controller.generate_report_by_subject(“Math”)</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Documentation for this module generated by Bing ChatGPT, so may not be
+accurate.</p>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gurutracker.database.sqlite3.</span></span><span class="sig-name descname"><span class="pre">Controller</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connection</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gurutracker.database.base.Base" title="gurutracker.database.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.add_assignment">
+<span class="sig-name descname"><span class="pre">add_assignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assignment</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.add_assignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.add_assignment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new assignment to the database.</p>
+<p>This method executes a SQL query to insert a new assignment and its
+related tutor information to the database. It then updates the id attribute
+of the Assignment object with the generated id from the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>assignment</strong> (<a class="reference internal" href="#gurutracker.database.objects.Assignment" title="gurutracker.database.objects.Assignment"><em>Assignment</em></a>) – The Assignment object to add to the database.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.add_subject">
+<span class="sig-name descname"><span class="pre">add_subject</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.add_subject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.add_subject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.add_tag">
+<span class="sig-name descname"><span class="pre">add_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.add_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.add_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.add_tutor">
+<span class="sig-name descname"><span class="pre">add_tutor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tutor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.add_tutor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.add_tutor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.assignment_tags">
+<span class="sig-name descname"><span class="pre">assignment_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assignment</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.assignment_tags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.assignment_tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.del_assignment">
+<span class="sig-name descname"><span class="pre">del_assignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assignment</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.del_assignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.del_assignment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.delete_subject">
+<span class="sig-name descname"><span class="pre">delete_subject</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.delete_subject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.delete_subject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.delete_tag">
+<span class="sig-name descname"><span class="pre">delete_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.delete_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.delete_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.delete_tutor">
+<span class="sig-name descname"><span class="pre">delete_tutor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tutor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.delete_tutor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.delete_tutor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.edit_assignment">
+<span class="sig-name descname"><span class="pre">edit_assignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assignment</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.edit_assignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.edit_assignment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Edit an existing assignment in the database.</p>
+<p>This method executes a SQL query to update an existing assignment and its
+related tutor information in the database. It uses the id attribute of the</p>
+<blockquote>
+<div><p>Assignment object as a condition for updating.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>assignment</strong> (<a class="reference internal" href="#gurutracker.database.objects.Assignment" title="gurutracker.database.objects.Assignment"><em>Assignment</em></a>) – The Assignment object with updated attributes</p></li>
+<li><p><strong>database.</strong> (<em>to edit in the</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.edit_subject">
+<span class="sig-name descname"><span class="pre">edit_subject</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.edit_subject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.edit_subject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.edit_tag">
+<span class="sig-name descname"><span class="pre">edit_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.edit_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.edit_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.edit_tutor">
+<span class="sig-name descname"><span class="pre">edit_tutor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tutor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.edit_tutor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.edit_tutor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.get_assignment_by_id">
+<span class="sig-name descname"><span class="pre">get_assignment_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.get_assignment_by_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.get_assignment_by_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an assignment by its id.</p>
+<p>This method executes a SQL query to select an assignment and its
+related tutor information from the database by its id. It then creates
+an Assignment object and a Tutor object for the row and returns them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em>) – The id of the assignment to get.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An Assignment object with its associated Tutor object if found,
+or None otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.get_assignment_by_uid">
+<span class="sig-name descname"><span class="pre">get_assignment_by_uid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.get_assignment_by_uid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.get_assignment_by_uid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an assignment by its unique identifier.</p>
+<p>This method executes a SQL query to select an assignment and its
+related tutor information from the database by its unique identifier.
+It then creates an Assignment object and a Tutor object for the row
+and returns them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>uid</strong> (<em>str</em>) – The unique identifier of the assignment to get.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An Assignment object with its associated Tutor object if found,
+or None otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.get_tag">
+<span class="sig-name descname"><span class="pre">get_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.get_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.get_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.get_tutor_by_uid">
+<span class="sig-name descname"><span class="pre">get_tutor_by_uid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.get_tutor_by_uid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.get_tutor_by_uid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.list_all_assignments">
+<span class="sig-name descname"><span class="pre">list_all_assignments</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.list_all_assignments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.list_all_assignments" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all assignments with their corresponding tutors.</p>
+<p>This function executes a SQL query to select all assignments and their
+related tutor information from the database. It then creates Assignment
+and Tutor objects for each row and appends them to a list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of Assignment objects with their associated Tutor objects.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.list_all_assignments_customsql">
+<span class="sig-name descname"><span class="pre">list_all_assignments_customsql</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">custom_sql</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.list_all_assignments_customsql"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.list_all_assignments_customsql" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all assignments with their corresponding tutors using a custom SQL query.</p>
+<p>This function executes a SQL query that is composed of a base query and a
+custom SQL string provided by the user. It then creates Assignment and Tutor
+objects for each row and appends them to a list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>custom_sql</strong> – A string containing additional SQL clauses to filter or sort
+the assignments.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>A list of Assignment objects with their associated Tutor objects that match</dt><dd><p>the custom SQL query.</p>
+</dd>
+<dt>Raises:</dt><dd><p>sqlite3.Error: If there is an error in executing the SQL query.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.list_all_subjects">
+<span class="sig-name descname"><span class="pre">list_all_subjects</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.list_all_subjects"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.list_all_subjects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.list_tags">
+<span class="sig-name descname"><span class="pre">list_tags</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.list_tags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.list_tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.list_tutors">
+<span class="sig-name descname"><span class="pre">list_tutors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.list_tutors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.list_tutors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.search_assignment_by_name_instr">
+<span class="sig-name descname"><span class="pre">search_assignment_by_name_instr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.search_assignment_by_name_instr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.search_assignment_by_name_instr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search assignments by their name using a partial match and sort them by id.</p>
+<p>This method executes a SQL query to select all assignments and their
+related tutor information from the database that have a partial match
+with the given name. It then creates Assignment objects and Tutor objects
+for each row and appends them to a list. The list is sorted by the id of
+the assignments in ascending order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – The name or part of the name of the assignments to search.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of Assignment objects with their associated Tutor objects that match
+the search criteria and are sorted by id.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.search_assignment_by_tags">
+<span class="sig-name descname"><span class="pre">search_assignment_by_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tags</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.search_assignment_by_tags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.search_assignment_by_tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search assignments by their tags using an exact match.</p>
+<p>This method is not implemented yet. It should execute a SQL query to select
+all assignments and their related tutor information from the database that have
+an exact match with the given tags. It then should create Assignment objects and Tutor objects
+for each row and append them to a list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tags</strong> (<em>list</em><em> of </em><em>str</em>) – The tags of the assignments to search.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of Assignment objects with their associated Tutor objects that match
+the search criteria.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.search_tag_by_text_instr">
+<span class="sig-name descname"><span class="pre">search_tag_by_text_instr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.search_tag_by_text_instr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.search_tag_by_text_instr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.search_uid_by_name_instr">
+<span class="sig-name descname"><span class="pre">search_uid_by_name_instr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.search_uid_by_name_instr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.search_uid_by_name_instr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search assignments by their unique identifier using a partial match and sort them by id.</p>
+<p>This method executes a SQL query to select all assignments and their
+related tutor information from the database that have a partial match
+with the given unique identifier. It then creates Assignment objects and Tutor objects
+for each row and appends them to a list. The list is sorted by the id of
+the assignments in ascending order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – The unique identifier or part of it of the assignments to search.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of Assignment objects with their associated Tutor objects that match
+the search criteria and are sorted by id.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.sql_query">
+<span class="sig-name descname"><span class="pre">sql_query</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.sql_query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.sql_query" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.tag_assignment">
+<span class="sig-name descname"><span class="pre">tag_assignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assignment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.tag_assignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.tag_assignment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.tagged_assignments">
+<span class="sig-name descname"><span class="pre">tagged_assignments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.tagged_assignments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.tagged_assignments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gurutracker.database.sqlite3.Controller.untag_assignment">
+<span class="sig-name descname"><span class="pre">untag_assignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assignment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gurutracker/database/sqlite3.html#Controller.untag_assignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gurutracker.database.sqlite3.Controller.untag_assignment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-gurutracker.database">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-gurutracker.database" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Gurutracker</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="gurutracker.html">gurutracker package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">Modules</a><ul>
+  <li><a href="gurutracker.html">gurutracker package</a><ul>
+      <li>Previous: <a href="gurutracker.config.html" title="previous chapter">gurutracker.config package</a></li>
+      <li>Next: <a href="gurutracker.storage.html" title="next chapter">gurutracker.storage package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Advaith Menon.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/gurutracker.database.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
