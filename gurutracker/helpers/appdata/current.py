@@ -127,13 +127,4 @@ def dump_v2_0(file_path, stream=sys.stdout):
     finally:
         tempdir.cleanup()
     
-    # cur.execute("SELECT `assignment`.`id`, `assignment`.`uidentifier` FROM `assignment`;")
-    
-    """
-    for id, uid in cur.fetchall():
-        if valid_filepath(settings, uid):
-            shutil.copy(filepath(settings, uid), 
-                        os.path.join(tempdir.name, 
-                                     "files", 
-                                     "file_{:04d}.{}".format(id, 
-                                                             settings.get("files", "extension")) ))"""
+
