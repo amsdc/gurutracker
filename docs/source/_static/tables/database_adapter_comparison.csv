@@ -1,0 +1,30 @@
+Property,mysql,sqlite3
+Version,Revision 4,Revision 4
+Database backend,MySQL 7 and above/MariaDB 10 and above (or any suiitable drop-in replacement),SQLite 3
+General points,"MySQL and MariaDB:
+
+* Good for large databases
+* Requires prior configuration hence longer set-up
+* Easier to perform migrations i.e. database structure updates
+
+On MySQL vs MariaDB, please refer to `some articles <https://www.hostinger.com/tutorials/mariadb-vs-mysql>`_","* Good for small-medium databases
+* The best to get started with - as it requires zero configuration. However, it has a major shortcoming:
+* Cannot perform migrations. Only way to carry data to a new version is to export and then import"
+Installation,"MySQL: `MySQL Installer for Windows <https://dev.mysql.com/downloads/installer/>`_
+Note: If the site asks you to set up an Oracle account before download, just choose ""No thanks, just start my download"" option.
+
+MariaDB: `Guide on installing MariaDB for Windows <https://mariadb.com/kb/en/installing-mariadb-msi-packages-on-windows/>`_
+This is a step-by-step guide which will be applicable to some extent for MySQL too",No install
+Configuration options,"config.ini 
+::
+   [database]
+   type = mysql
+   host = localhost
+   user = root
+   password =  <password>
+   database = <database>
+   port = 3306","The default configuration will work well. If not, these are the options:
+::
+   [database]
+   type = sqlite3
+   file = <file>"

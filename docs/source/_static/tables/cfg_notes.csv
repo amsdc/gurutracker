@@ -1,0 +1,12 @@
+Option,Description,Default
+enabled,"Whether to enable this feature or not.
+
+Note that this feature is still in beta. Once it gets out of the beta stage, it will be always enabled.
+
+*This is a boolean value.*",``true``
+autosave,"If this option is enabled, Gurutracker will automatically save the notes file on every keystroke.
+
+This might consume a lot of resources, hence it is recomended to keep this disabled. 
+
+*This is a boolean value.*",``false``
+textfile,The location of the text file where the notes are stored.,``~/.gurutracker/notesfile.txt``

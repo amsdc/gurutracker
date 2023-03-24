@@ -1,14 +1,16 @@
 import os
+import platform
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 from tkinter import filedialog
+import webbrowser
 
 from PIL import ImageTk, Image
 
 from gurutracker.globals import settings, controller, module_path
 import gurutracker.helpers.exporter
-from gurutracker.helpers import appdata
+from gurutracker.helpers import appdata, netconnection
 from gurutracker.helpers.appdata.interface import AppdataProgressWindow as ImportToplevel
 from gurutracker.views import frames
 
@@ -47,7 +49,16 @@ class MainWindow(tk.Tk):
         self.tabs_menu.add_separator()
         self.tabs_menu.add_command(label="Close Tab", command=self.close_tab)
         self.menubar.add_cascade(label="Tabs", menu=self.tabs_menu)
+        self.help_menu = tk.Menu(tearoff=0)
+        self.help_menu.add_command(label="Help Topics", accelerator="F1", command=self.launch_help)
+        self.help_menu.add_separator()
+        self.help_menu.add_command(label="About Gurutracker")
+        self.help_menu.add_command(label="About AMSDC")
+        self.menubar.add_cascade(label="Help", menu=self.help_menu)
         tk.Tk.config(self, menu=self.menubar)
+        
+        # help menu
+        self.bind_all("<Key-F1>", self.launch_help)
         
         self.notebook = ttk.Notebook(self)
         self.notebook.enable_traversal()
@@ -73,6 +84,16 @@ class MainWindow(tk.Tk):
         if settings.getboolean("gui.preferences", "mainwindow.onStartup.launchFullScreen"):
             self.win_fullscreen_tkvar.set(True)
             self.toggle_full_screen()
+            
+    def launch_help(self, event=None):
+        if netconnection.is_connected("amsdc.github.io"):
+            webbrowser.open_new("https://amsdc.github.io/gurutracker/")
+        elif platform.system() == "Windows" and \
+                os.path.isfile(os.path.join(module_path, "resources", "help", "help.chm")):
+            webbrowser.open_new(os.path.join(module_path, "resources", "help", "help.chm"))
+        else:
+            messagebox.showinfo("Internet connection required",
+                                "Please connect to the Internet to view online help.")
         
     def close_tab(self):
         if self.notebook.index(self.notebook.select()) >= 1:

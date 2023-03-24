@@ -139,7 +139,7 @@ class AssignmentBrowserFrame(tk.Frame):
         getattr(self, settings.get("gui.preferences", "mainwindow.AssignmentBrowserFrame.DoubleButton1.defaultaction"), self.view_current_record)()
     
     def tv_enter_key(self, event):
-        getattr(self, settings.get("gui.preferences", "mainwindow.AssignmentBrowserFrame.ReturnKey.defaultaction"), self.view_current_record)()
+        getattr(self, settings.get("gui.preferences", "mainwindow.AssignmentBrowserFrame.ReturnKey.defaultaction"), self.open_current_record)()
         
     def edit_current_record(self):
         if self.selected_record:

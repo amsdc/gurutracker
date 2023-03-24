@@ -1,0 +1,7 @@
+Property,Description,Default
+type,"The type of storage adapter. 
+
+Only choice is ``filesystem.directory``.",``filesystem.directory``
+tempinfo,"When you open a file using the Gurutracker menu,  a copy of the file is created in the operating system's temporary directory. When you close the app, Gurutracker attempts to delete the temporary files. However, if at the time of closing Gurutracker, the file is locked (i.e. opened by another application), it will not be able to delete the file. The names of the files which could not be deleted are stored in this file, and are deleted the next time Gurutracker opens.
+
+Note that if you clear the temp directory manually, Gurutracker will not clear the tempinfo file. Hence, it is imperative on your part to delete the tempinfo file in such cases.",``~/.gurutracker/tempinfo``

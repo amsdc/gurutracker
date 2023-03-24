@@ -1,0 +1,4 @@
+"Property","Description","Default"
+"type","The type of database adapter. 
+
+Two inbuilt adapters are: ``mysql`` and ``sqlite3``.","``sqlite3``"
