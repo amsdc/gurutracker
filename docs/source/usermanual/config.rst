@@ -124,5 +124,35 @@ GUI preferences
 
 .. csv-table:: 
    :file: ../_static/tables/cfg_gui.csv
-   :widths: 30, 40, 30
    :header-rows: 1
+
+Available callbacks
+-------------------
+#. ``edit_tags_overall`` Launch the Edit Tags dialog. This dialog 
+   allows you to edit created tags.
+#. ``do_nothing`` Does exactly what its name says - nothing.
+#. ``tv_double_click`` Special reserved name. Do not use.
+#. ``tv_enter_key`` Special reserved name. Do not use.
+#. ``edit_current_record`` Edits the currently selected record.
+#. ``del_record`` Deletes the currently selected record.
+#. ``open_current_record`` Open the file associated with the given 
+   assignment.
+#. ``file_send_to`` Show the Send To menu for the selected record.
+#. ``disassociate_file_rec`` Unlink the file from selected record.
+#. ``associate_file_rec`` Link a file to selected record.
+#. ``view_tags_current_record`` View tags linked with current record.
+#. ``filter_assn`` Show the assignment filtering dialog.
+#. ``view_current_record`` Not supported, may produce garbled output.
+#. ``tree_item_selected`` Special reserved name. Do not use.
+#. ``add_new`` Add new assignment
+#. ``refresh_treeview`` Refreshes the treeview.
+#. ``load_treeview_customsql`` Not supported.
+#. ``load_data_treeview`` Special reserved name. Do not use.
+#. ``search_treeview_by_assnname``
+#. ``search_treeview_by_uid``
+#. ``get_treeview_item_by_id``
+#. ``get_treeview_item_by_uid``
+#. ``show_datastore``
+#. ``images_to_pdf``
+
+.. [1] Unique Identifier

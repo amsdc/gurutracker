@@ -1,21 +1,45 @@
 Property,Description,Default
-mainwindow.onStartup.launchFullScreen,"If true, the application will open in full-screen mode.
+``mainwindow.onStartup.launchFullScreen``,"If true, the application will open in full-screen mode.
 
 *This is a boolean value*",```false``
-mainwindow.ToolBar.FilesToolbarMenubutton.showSendToOption,"If true, the 'Send To' option will be enabled in the Files menu. The 'Send To' menu is the same as that when you right click on a file in Windows Explorer. This can be used to send the files to other apps, like Windows Fax and Scan or Telegram. Currently, WhatsApp does not provide a Send To option - one can request for the feature by writing a mail to them.
+``mainwindow.ToolBar.FilesToolbarMenubutton.showSendToOption``,"If true, the 'Send To' option will be enabled in the Files menu. The 'Send To' menu is the same as that when you right click on a file in Windows Explorer. This can be used to send the files to other apps, like Windows Fax and Scan or Telegram. Currently, WhatsApp does not provide a Send To option - one can request for the feature by writing a mail to them.
 
 *This feature may not work properly.* The 'Send to' feature cannot send files to the Desktop, Documents or other folders because of some ambiguity in the working of this feature.
 
 *Only on Windows*
 
 *This is a boolean value*",``off``
-mainwindow.AssignmentBrowserFrame.DoubleButton1.defaultaction,"Choose what happens when you double-click on an item on the list of Assignments. Choose only a valid callback from the below table. In case the callback is invalid, app defaults to ``view_current_record``.",``view_current_record``
-mainwindow.AssignmentBrowserFrame.ReturnKey.defaultaction,"Choose what happens when you press Enter when an item on the list of Assignments is selected. Choose only a valid callback from the below table. In case the callback is invalid, app defaults to ``open_current_record``.",``open_current_record``
-mainwindow.AssignmentBrowserFrame.ViewTagsDialog.onupdate,"Choose what happens when you assign a tag to as assignment using the View Tags dialog. Choose only a valid callback from the below table. In case the callback is invalid, app defaults to ``refresh_treeview``.",``refresh_treeview``
-mainwindow.AssignmentBrowserFrame.AssignmentListFrame.displaycolumns,"Choose which columns to display in the List of Assignments on the home screen. You can choose from the following:
+``mainwindow.AssignmentBrowserFrame.DoubleButton1.defaultaction``,"Choose what happens when you double-click on an item on the list of Assignments. Choose only a valid callback from the below table. In case the callback is invalid, app defaults to ``view_current_record``.",``view_current_record``
+``mainwindow.AssignmentBrowserFrame.ReturnKey.defaultaction``,"Choose what happens when you press Enter when an item on the list of Assignments is selected. Choose only a valid callback from the below table. In case the callback is invalid, app defaults to ``open_current_record``.",``open_current_record``
+``mainwindow.AssignmentBrowserFrame.ViewTagsDialog.onupdate``,"Choose what happens when you assign a tag to as assignment using the View Tags dialog. Choose only a valid callback from the below table. In case the callback is invalid, app defaults to ``refresh_treeview``.",``refresh_treeview``
+``mainwindow.AssignmentBrowserFrame.AssignmentListFrame.displaycolumns``,"Choose which columns to display in the List of Assignments on the home screen. You can choose from the following:
 
-* **assignment.id** - The system-assigned number of the assignment.
-* **asssignment.name** - The name of the assignment
-* **assignment.uidentifier** - The UID [#]_ of the assignment
+* ``assignment.id`` - The system-assigned number of the assignment.
+* ``asssignment.name`` - The name of the assignment
+* ``assignment.uidentifier`` - The UID [1]_ of the assignment alone.
+* ``assignment.type`` - The type of the assignment
+* ``tutor.id`` - The ID of the tutor
+* ``tutor.name`` - The name of the tutor
+* ``tutor.uidentifier`` - The UID [1]_ of the tutor alone.
+* ``subject.id`` - The subject ID
+* ``subject.name`` - The name of the subject
+* ``subject.desc`` - The description of the subject
+* ``subject.uidentifier`` - The subject UID [1]_
+* ``.assignment.uidentifier`` - Subject UID, Tutor UID, Assignment UID concatenated by a / character.","assignment.id, assignment.name, .assignment.uidentifier, assignment.type, tutor.name, subject.name"
+``dialogs.AssignmentDialogBase.TutorListFrame.displaycolumns``,"Choose which columns to display in the List of Tutors in the New Assignment dialog box. You can choose from the following:
 
-.. [#] Unique Identifier","assignment.id, assignment.name, .assignment.uidentifier, assignment.type, tutor.name, subject.name"
+* ``tutor.id`` - The ID of the tutor
+* ``tutor.name`` - The name of the tutor
+* ``tutor.uidentifier`` - The UID [1]_ of the tutor alone.
+* ``subject.id`` - The subject ID
+* ``subject.name`` - The name of the subject
+* ``subject.desc`` - The description of the subject
+* ``subject.uidentifier`` - The subject UID [1]_
+* ``.tutor.uidentifier`` - Subject UID, Tutor UID concatenated by a / character.","tutor.name, tutor.uidentifier"
+``dialogs.TutorDialogBase.SubjectListFrame.displaycolumns``,"Choose which columns to display in the Subjects tab. You can choose from the following:
+
+* ``subject.id`` - The subject ID
+* ``subject.name`` - The name of the subject
+* ``subject.desc`` - The description of the subject
+* ``subject.uidentifier`` - The subject UID [1]_
+* ``.tutor.uidentifier`` - Subject UID, Tutor UID concatenated by a / character.","tutor.name, tutor.uidentifier"
